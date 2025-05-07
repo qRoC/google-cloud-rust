@@ -16,7 +16,6 @@
 
 pub mod license_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LicenseManagementService][super::super::client::LicenseManagementService].
     ///
@@ -49,7 +48,7 @@ pub mod license_management_service {
     /// Common implementation for [super::super::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod license_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod license_management_service {
 
     impl GetLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -122,7 +121,7 @@ pub mod license_management_service {
 
     impl UpdateLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -186,7 +185,7 @@ pub mod license_management_service {
 
     impl Assign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -246,7 +245,7 @@ pub mod license_management_service {
 
     impl Unassign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -306,7 +305,7 @@ pub mod license_management_service {
 
     impl EnumerateLicensedUsers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -385,7 +384,7 @@ pub mod license_management_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -430,7 +429,6 @@ pub mod license_management_service {
 
 pub mod consumer_procurement_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ConsumerProcurementService][super::super::client::ConsumerProcurementService].
     ///
@@ -463,7 +461,7 @@ pub mod consumer_procurement_service {
     /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -473,7 +471,7 @@ pub mod consumer_procurement_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self {
                 stub,
@@ -489,7 +487,7 @@ pub mod consumer_procurement_service {
 
     impl PlaceOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -523,7 +521,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -548,7 +547,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
@@ -567,12 +566,6 @@ pub mod consumer_procurement_service {
             self
         }
 
-        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
-        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.request_id = v.into();
-            self
-        }
-
         /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
         pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
         where
@@ -581,6 +574,12 @@ pub mod consumer_procurement_service {
         {
             use std::iter::Iterator;
             self.0.request.line_item_info = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
             self
         }
     }
@@ -598,7 +597,7 @@ pub mod consumer_procurement_service {
 
     impl GetOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -645,7 +644,7 @@ pub mod consumer_procurement_service {
 
     impl ListOrders {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -725,7 +724,7 @@ pub mod consumer_procurement_service {
 
     impl ModifyOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -759,7 +758,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -784,7 +784,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
@@ -792,6 +792,17 @@ pub mod consumer_procurement_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+        pub fn set_modifications<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::modify_order_request::Modification>,
+        {
+            use std::iter::Iterator;
+            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -804,17 +815,6 @@ pub mod consumer_procurement_service {
         /// Sets the value of [etag][crate::model::ModifyOrderRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
-            self
-        }
-
-        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
-        pub fn set_modifications<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::modify_order_request::Modification>,
-        {
-            use std::iter::Iterator;
-            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -832,7 +832,7 @@ pub mod consumer_procurement_service {
 
     impl CancelOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -866,7 +866,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -891,7 +892,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelOrderRequest::name].
@@ -933,7 +934,7 @@ pub mod consumer_procurement_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

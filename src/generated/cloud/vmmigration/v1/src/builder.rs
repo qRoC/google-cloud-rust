@@ -16,7 +16,6 @@
 
 pub mod vm_migration {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VmMigration][super::super::client::VmMigration].
     ///
@@ -49,7 +48,7 @@ pub mod vm_migration {
     /// Common implementation for [super::super::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VmMigration>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod vm_migration {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod vm_migration {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +161,9 @@ pub mod vm_migration {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,7 +208,9 @@ pub mod vm_migration {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -236,7 +243,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -261,7 +269,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -310,7 +318,9 @@ pub mod vm_migration {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,7 +353,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,7 +379,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
@@ -410,7 +421,9 @@ pub mod vm_migration {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -441,7 +454,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +479,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
@@ -496,7 +509,9 @@ pub mod vm_migration {
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -547,7 +562,9 @@ pub mod vm_migration {
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
     impl ListUtilizationReports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +661,9 @@ pub mod vm_migration {
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
     impl GetUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -700,7 +719,9 @@ pub mod vm_migration {
     );
 
     impl CreateUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -737,8 +758,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::UtilizationReport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::UtilizationReport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::UtilizationReport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -763,7 +786,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateUtilizationReportRequest::parent].
@@ -816,7 +839,9 @@ pub mod vm_migration {
     );
 
     impl DeleteUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -850,7 +875,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_utilization_report`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -875,7 +900,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteUtilizationReportRequest::name].
@@ -907,7 +932,9 @@ pub mod vm_migration {
     );
 
     impl ListDatacenterConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -998,7 +1025,9 @@ pub mod vm_migration {
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
     impl GetDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1048,7 +1077,9 @@ pub mod vm_migration {
     );
 
     impl CreateDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1085,8 +1116,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::DatacenterConnector, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DatacenterConnector, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DatacenterConnector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1111,7 +1144,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatacenterConnectorRequest::parent].
@@ -1164,7 +1197,9 @@ pub mod vm_migration {
     );
 
     impl DeleteDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1198,7 +1233,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_datacenter_connector`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1223,7 +1258,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatacenterConnectorRequest::name].
@@ -1253,7 +1288,9 @@ pub mod vm_migration {
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,7 +1327,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::UpgradeApplianceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UpgradeApplianceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1318,7 +1355,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [datacenter_connector][crate::model::UpgradeApplianceRequest::datacenter_connector].
@@ -1348,7 +1385,9 @@ pub mod vm_migration {
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1384,8 +1423,10 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1410,7 +1451,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMigratingVmRequest::parent].
@@ -1459,7 +1500,9 @@ pub mod vm_migration {
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1554,7 +1597,9 @@ pub mod vm_migration {
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1605,7 +1650,9 @@ pub mod vm_migration {
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1641,8 +1688,10 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1667,7 +1716,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
@@ -1709,7 +1758,9 @@ pub mod vm_migration {
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1743,7 +1794,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migrating_vm`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1768,7 +1819,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMigratingVmRequest::name].
@@ -1792,7 +1843,9 @@ pub mod vm_migration {
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1826,7 +1879,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::StartMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::StartMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1854,7 +1907,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::StartMigrationRequest::migrating_vm].
@@ -1878,7 +1931,9 @@ pub mod vm_migration {
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1912,7 +1967,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::ResumeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ResumeMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1940,7 +1995,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::ResumeMigrationRequest::migrating_vm].
@@ -1964,7 +2019,9 @@ pub mod vm_migration {
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1998,7 +2055,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::PauseMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PauseMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2026,7 +2083,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::PauseMigrationRequest::migrating_vm].
@@ -2050,7 +2107,9 @@ pub mod vm_migration {
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2087,7 +2146,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::FinalizeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::FinalizeMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2115,7 +2174,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::FinalizeMigrationRequest::migrating_vm].
@@ -2139,7 +2198,9 @@ pub mod vm_migration {
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2173,7 +2234,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CloneJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2198,7 +2259,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCloneJobRequest::parent].
@@ -2247,7 +2308,9 @@ pub mod vm_migration {
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2281,7 +2344,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CancelCloneJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CancelCloneJobResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2309,7 +2372,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelCloneJobRequest::name].
@@ -2333,7 +2396,9 @@ pub mod vm_migration {
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2419,7 +2484,9 @@ pub mod vm_migration {
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2464,7 +2531,9 @@ pub mod vm_migration {
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2501,7 +2570,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CutoverJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2526,7 +2595,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCutoverJobRequest::parent].
@@ -2575,7 +2644,9 @@ pub mod vm_migration {
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2612,7 +2683,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CancelCutoverJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CancelCutoverJobResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2640,7 +2711,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelCutoverJobRequest::name].
@@ -2664,7 +2735,9 @@ pub mod vm_migration {
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2750,7 +2823,9 @@ pub mod vm_migration {
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2795,7 +2870,9 @@ pub mod vm_migration {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2881,7 +2958,9 @@ pub mod vm_migration {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2926,7 +3005,9 @@ pub mod vm_migration {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2959,7 +3040,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2984,7 +3066,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
@@ -3033,7 +3115,9 @@ pub mod vm_migration {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3066,7 +3150,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3091,7 +3176,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
@@ -3133,7 +3218,9 @@ pub mod vm_migration {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3164,7 +3251,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3189,7 +3276,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
@@ -3219,7 +3306,9 @@ pub mod vm_migration {
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3256,7 +3345,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::AddGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddGroupMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -3284,7 +3373,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::AddGroupMigrationRequest::group].
@@ -3314,7 +3403,9 @@ pub mod vm_migration {
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
     impl RemoveGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3351,7 +3442,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::RemoveGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveGroupMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -3379,7 +3470,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::RemoveGroupMigrationRequest::group].
@@ -3409,7 +3500,9 @@ pub mod vm_migration {
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
     impl ListTargetProjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3498,7 +3591,9 @@ pub mod vm_migration {
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3546,7 +3641,9 @@ pub mod vm_migration {
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
     impl CreateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3583,8 +3680,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3609,7 +3708,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetProjectRequest::parent].
@@ -3658,7 +3757,9 @@ pub mod vm_migration {
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
     impl UpdateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3695,8 +3796,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3721,7 +3824,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
@@ -3763,7 +3866,9 @@ pub mod vm_migration {
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
     impl DeleteTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3797,7 +3902,7 @@ pub mod vm_migration {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target_project`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3822,7 +3927,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetProjectRequest::name].
@@ -3852,7 +3957,9 @@ pub mod vm_migration {
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
     impl ListReplicationCycles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3941,7 +4048,9 @@ pub mod vm_migration {
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
     impl GetReplicationCycle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3989,7 +4098,9 @@ pub mod vm_migration {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4068,7 +4179,9 @@ pub mod vm_migration {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4111,7 +4224,9 @@ pub mod vm_migration {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4190,7 +4305,9 @@ pub mod vm_migration {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4236,7 +4353,9 @@ pub mod vm_migration {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4282,7 +4401,9 @@ pub mod vm_migration {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

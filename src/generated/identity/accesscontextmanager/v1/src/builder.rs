@@ -16,7 +16,6 @@
 
 pub mod access_context_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AccessContextManager][super::super::client::AccessContextManager].
     ///
@@ -49,7 +48,7 @@ pub mod access_context_manager {
     /// Common implementation for [super::super::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod access_context_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod access_context_manager {
 
     impl ListAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -152,7 +151,7 @@ pub mod access_context_manager {
 
     impl GetAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -199,7 +198,7 @@ pub mod access_context_manager {
 
     impl CreateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -236,7 +235,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -264,7 +263,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AccessPolicy::name].
@@ -282,6 +281,17 @@ pub mod access_context_manager {
         /// Sets the value of [title][crate::model::AccessPolicy::title].
         pub fn set_title<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.title = v.into();
+            self
+        }
+
+        /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
+        pub fn set_scopes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.scopes = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -308,17 +318,6 @@ pub mod access_context_manager {
             self.0.request.etag = v.into();
             self
         }
-
-        /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
-        pub fn set_scopes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.scopes = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -334,7 +333,7 @@ pub mod access_context_manager {
 
     impl UpdateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -374,7 +373,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -402,7 +401,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
@@ -441,7 +440,7 @@ pub mod access_context_manager {
 
     impl DeleteAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -479,8 +478,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -505,7 +506,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessPolicyRequest::name].
@@ -530,7 +531,7 @@ pub mod access_context_manager {
 
     impl ListAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -613,7 +614,7 @@ pub mod access_context_manager {
 
     impl GetAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -666,7 +667,7 @@ pub mod access_context_manager {
 
     impl CreateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -706,7 +707,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -734,7 +735,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAccessLevelRequest::parent].
@@ -770,7 +771,7 @@ pub mod access_context_manager {
 
     impl UpdateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -810,7 +811,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -838,7 +839,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
@@ -877,7 +878,7 @@ pub mod access_context_manager {
 
     impl DeleteAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -915,8 +916,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -941,7 +944,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessLevelRequest::name].
@@ -966,7 +969,7 @@ pub mod access_context_manager {
 
     impl ReplaceAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1006,7 +1009,7 @@ pub mod access_context_manager {
             crate::model::ReplaceAccessLevelsResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceAccessLevelsResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1034,7 +1037,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReplaceAccessLevelsRequest::parent].
@@ -1042,12 +1045,6 @@ pub mod access_context_manager {
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -1061,6 +1058,12 @@ pub mod access_context_manager {
         {
             use std::iter::Iterator;
             self.0.request.access_levels = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -1078,7 +1081,7 @@ pub mod access_context_manager {
 
     impl ListServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1155,7 +1158,7 @@ pub mod access_context_manager {
 
     impl GetServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1205,7 +1208,7 @@ pub mod access_context_manager {
 
     impl CreateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1245,7 +1248,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1273,7 +1276,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServicePerimeterRequest::parent].
@@ -1311,7 +1314,7 @@ pub mod access_context_manager {
 
     impl UpdateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1351,7 +1354,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1379,7 +1382,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
@@ -1420,7 +1423,7 @@ pub mod access_context_manager {
 
     impl DeleteServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1458,8 +1461,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1484,7 +1489,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServicePerimeterRequest::name].
@@ -1511,7 +1516,7 @@ pub mod access_context_manager {
 
     impl ReplaceServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1551,7 +1556,7 @@ pub mod access_context_manager {
             crate::model::ReplaceServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1579,7 +1584,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReplaceServicePerimetersRequest::parent].
@@ -1587,12 +1592,6 @@ pub mod access_context_manager {
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -1606,6 +1605,12 @@ pub mod access_context_manager {
         {
             use std::iter::Iterator;
             self.0.request.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -1625,7 +1630,7 @@ pub mod access_context_manager {
 
     impl CommitServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1665,7 +1670,7 @@ pub mod access_context_manager {
             crate::model::CommitServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CommitServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1693,7 +1698,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CommitServicePerimetersRequest::parent].
@@ -1726,7 +1731,7 @@ pub mod access_context_manager {
 
     impl ListGcpUserAccessBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1807,7 +1812,7 @@ pub mod access_context_manager {
 
     impl GetGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1859,7 +1864,7 @@ pub mod access_context_manager {
 
     impl CreateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1899,7 +1904,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -1927,7 +1932,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGcpUserAccessBindingRequest::parent].
@@ -1967,7 +1972,7 @@ pub mod access_context_manager {
 
     impl UpdateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2007,7 +2012,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2035,7 +2040,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
@@ -2078,7 +2083,7 @@ pub mod access_context_manager {
 
     impl DeleteGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2116,8 +2121,10 @@ pub mod access_context_manager {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::GcpUserAccessBindingOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2142,7 +2149,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGcpUserAccessBindingRequest::name].
@@ -2167,7 +2174,7 @@ pub mod access_context_manager {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2234,7 +2241,7 @@ pub mod access_context_manager {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2290,7 +2297,7 @@ pub mod access_context_manager {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2353,7 +2360,7 @@ pub mod access_context_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

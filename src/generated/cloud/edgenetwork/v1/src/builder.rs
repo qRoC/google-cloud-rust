@@ -16,7 +16,6 @@
 
 pub mod edge_network {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EdgeNetwork][super::super::client::EdgeNetwork].
     ///
@@ -49,7 +48,7 @@ pub mod edge_network {
     /// Common implementation for [super::super::client::EdgeNetwork] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod edge_network {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod edge_network {
     pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
 
     impl InitializeZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,7 +120,9 @@ pub mod edge_network {
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
     impl ListZones {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod edge_network {
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
     impl GetZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,7 +253,9 @@ pub mod edge_network {
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -330,7 +339,9 @@ pub mod edge_network {
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,7 +386,9 @@ pub mod edge_network {
     pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
     impl DiagnoseNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -420,7 +433,9 @@ pub mod edge_network {
     pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
 
     impl CreateNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -453,7 +468,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Network, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -478,7 +494,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkRequest::parent].
@@ -527,7 +543,9 @@ pub mod edge_network {
     pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
 
     impl DeleteNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -558,7 +576,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -583,7 +601,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkRequest::name].
@@ -613,7 +631,9 @@ pub mod edge_network {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,7 +717,9 @@ pub mod edge_network {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,7 +764,9 @@ pub mod edge_network {
     pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
 
     impl CreateSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -775,7 +799,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -800,7 +825,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSubnetRequest::parent].
@@ -849,7 +874,9 @@ pub mod edge_network {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -882,7 +909,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -907,7 +935,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
@@ -951,7 +979,9 @@ pub mod edge_network {
     pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
 
     impl DeleteSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -982,7 +1012,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subnet`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1007,7 +1037,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSubnetRequest::name].
@@ -1037,7 +1067,9 @@ pub mod edge_network {
     pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
 
     impl ListInterconnects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1124,7 +1156,9 @@ pub mod edge_network {
     pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
 
     impl GetInterconnect {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1169,7 +1203,9 @@ pub mod edge_network {
     pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
 
     impl DiagnoseInterconnect {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1219,7 +1255,9 @@ pub mod edge_network {
     );
 
     impl ListInterconnectAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1310,7 +1348,9 @@ pub mod edge_network {
     );
 
     impl GetInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1360,7 +1400,9 @@ pub mod edge_network {
     );
 
     impl CreateInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1397,7 +1439,7 @@ pub mod edge_network {
             self,
         ) -> impl lro::Poller<crate::model::InterconnectAttachment, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InterconnectAttachment,
                 crate::model::OperationMetadata,
             >;
@@ -1425,7 +1467,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInterconnectAttachmentRequest::parent].
@@ -1481,7 +1523,9 @@ pub mod edge_network {
     );
 
     impl DeleteInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1515,7 +1559,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_interconnect_attachment`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1540,7 +1584,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInterconnectAttachmentRequest::name].
@@ -1570,7 +1614,9 @@ pub mod edge_network {
     pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
 
     impl ListRouters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1654,7 +1700,9 @@ pub mod edge_network {
     pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
 
     impl GetRouter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1699,7 +1747,9 @@ pub mod edge_network {
     pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
     impl DiagnoseRouter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1744,7 +1794,9 @@ pub mod edge_network {
     pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
 
     impl CreateRouter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1777,7 +1829,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1802,7 +1855,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRouterRequest::parent].
@@ -1851,7 +1904,9 @@ pub mod edge_network {
     pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
 
     impl UpdateRouter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1884,7 +1939,8 @@ pub mod edge_network {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Router, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Router, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Router, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1909,7 +1965,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
@@ -1953,7 +2009,9 @@ pub mod edge_network {
     pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
 
     impl DeleteRouter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1984,7 +2042,7 @@ pub mod edge_network {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_router`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2009,7 +2067,7 @@ pub mod edge_network {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRouterRequest::name].
@@ -2039,7 +2097,9 @@ pub mod edge_network {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2118,7 +2178,9 @@ pub mod edge_network {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2161,7 +2223,9 @@ pub mod edge_network {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2240,7 +2304,9 @@ pub mod edge_network {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2286,7 +2352,9 @@ pub mod edge_network {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2332,7 +2400,9 @@ pub mod edge_network {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeNetwork>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

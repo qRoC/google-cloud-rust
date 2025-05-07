@@ -16,7 +16,6 @@
 
 pub mod dep_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DepService][super::super::client::DepService].
     ///
@@ -49,7 +48,7 @@ pub mod dep_service {
     /// Common implementation for [super::super::client::DepService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DepService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dep_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +75,9 @@ pub mod dep_service {
     );
 
     impl ListLbTrafficExtensions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -163,7 +166,9 @@ pub mod dep_service {
     pub struct GetLbTrafficExtension(RequestBuilder<crate::model::GetLbTrafficExtensionRequest>);
 
     impl GetLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +218,9 @@ pub mod dep_service {
     );
 
     impl CreateLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,8 +257,10 @@ pub mod dep_service {
             self,
         ) -> impl lro::Poller<crate::model::LbTrafficExtension, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LbTrafficExtension, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LbTrafficExtension,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -276,7 +285,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLbTrafficExtensionRequest::parent].
@@ -329,7 +338,9 @@ pub mod dep_service {
     );
 
     impl UpdateLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -366,8 +377,10 @@ pub mod dep_service {
             self,
         ) -> impl lro::Poller<crate::model::LbTrafficExtension, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LbTrafficExtension, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LbTrafficExtension,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -392,7 +405,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLbTrafficExtensionRequest::update_mask].
@@ -438,7 +451,9 @@ pub mod dep_service {
     );
 
     impl DeleteLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -472,7 +487,7 @@ pub mod dep_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_lb_traffic_extension`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -497,7 +512,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLbTrafficExtensionRequest::name].
@@ -527,7 +542,9 @@ pub mod dep_service {
     pub struct ListLbRouteExtensions(RequestBuilder<crate::model::ListLbRouteExtensionsRequest>);
 
     impl ListLbRouteExtensions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,7 +631,9 @@ pub mod dep_service {
     pub struct GetLbRouteExtension(RequestBuilder<crate::model::GetLbRouteExtensionRequest>);
 
     impl GetLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -662,7 +681,9 @@ pub mod dep_service {
     pub struct CreateLbRouteExtension(RequestBuilder<crate::model::CreateLbRouteExtensionRequest>);
 
     impl CreateLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -699,8 +720,10 @@ pub mod dep_service {
             self,
         ) -> impl lro::Poller<crate::model::LbRouteExtension, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LbRouteExtension, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LbRouteExtension,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -725,7 +748,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLbRouteExtensionRequest::parent].
@@ -776,7 +799,9 @@ pub mod dep_service {
     pub struct UpdateLbRouteExtension(RequestBuilder<crate::model::UpdateLbRouteExtensionRequest>);
 
     impl UpdateLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -813,8 +838,10 @@ pub mod dep_service {
             self,
         ) -> impl lro::Poller<crate::model::LbRouteExtension, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LbRouteExtension, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LbRouteExtension,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -839,7 +866,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLbRouteExtensionRequest::update_mask].
@@ -883,7 +910,9 @@ pub mod dep_service {
     pub struct DeleteLbRouteExtension(RequestBuilder<crate::model::DeleteLbRouteExtensionRequest>);
 
     impl DeleteLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -917,7 +946,7 @@ pub mod dep_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_lb_route_extension`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -942,7 +971,7 @@ pub mod dep_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLbRouteExtensionRequest::name].
@@ -972,7 +1001,9 @@ pub mod dep_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1051,7 +1082,9 @@ pub mod dep_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1094,7 +1127,9 @@ pub mod dep_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1194,9 @@ pub mod dep_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1213,7 +1250,9 @@ pub mod dep_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,7 +1313,9 @@ pub mod dep_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1353,7 +1394,9 @@ pub mod dep_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1399,7 +1442,9 @@ pub mod dep_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1445,7 +1490,9 @@ pub mod dep_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1489,7 +1536,6 @@ pub mod dep_service {
 
 pub mod network_services {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetworkServices][super::super::client::NetworkServices].
     ///
@@ -1522,7 +1568,7 @@ pub mod network_services {
     /// Common implementation for [super::super::client::NetworkServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1531,7 +1577,9 @@ pub mod network_services {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1545,7 +1593,9 @@ pub mod network_services {
     pub struct ListEndpointPolicies(RequestBuilder<crate::model::ListEndpointPoliciesRequest>);
 
     impl ListEndpointPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1670,9 @@ pub mod network_services {
     pub struct GetEndpointPolicy(RequestBuilder<crate::model::GetEndpointPolicyRequest>);
 
     impl GetEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1668,7 +1720,9 @@ pub mod network_services {
     pub struct CreateEndpointPolicy(RequestBuilder<crate::model::CreateEndpointPolicyRequest>);
 
     impl CreateEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1705,8 +1759,10 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::EndpointPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::EndpointPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EndpointPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1731,7 +1787,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointPolicyRequest::parent].
@@ -1774,7 +1830,9 @@ pub mod network_services {
     pub struct UpdateEndpointPolicy(RequestBuilder<crate::model::UpdateEndpointPolicyRequest>);
 
     impl UpdateEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1811,8 +1869,10 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::EndpointPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::EndpointPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EndpointPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1837,7 +1897,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointPolicyRequest::update_mask].
@@ -1873,7 +1933,9 @@ pub mod network_services {
     pub struct DeleteEndpointPolicy(RequestBuilder<crate::model::DeleteEndpointPolicyRequest>);
 
     impl DeleteEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1907,7 +1969,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_endpoint_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1932,7 +1994,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointPolicyRequest::name].
@@ -1956,7 +2018,9 @@ pub mod network_services {
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
     impl ListGateways {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2028,7 +2092,9 @@ pub mod network_services {
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
     impl GetGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2073,7 +2139,9 @@ pub mod network_services {
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
     impl CreateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2106,7 +2174,8 @@ pub mod network_services {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Gateway, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2131,7 +2200,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
@@ -2174,7 +2243,9 @@ pub mod network_services {
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
     impl UpdateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2207,7 +2278,8 @@ pub mod network_services {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Gateway, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2232,7 +2304,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
@@ -2268,7 +2340,9 @@ pub mod network_services {
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
     impl DeleteGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2299,7 +2373,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_gateway`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2324,7 +2398,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
@@ -2348,7 +2422,9 @@ pub mod network_services {
     pub struct ListGrpcRoutes(RequestBuilder<crate::model::ListGrpcRoutesRequest>);
 
     impl ListGrpcRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2420,7 +2496,9 @@ pub mod network_services {
     pub struct GetGrpcRoute(RequestBuilder<crate::model::GetGrpcRouteRequest>);
 
     impl GetGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2465,7 +2543,9 @@ pub mod network_services {
     pub struct CreateGrpcRoute(RequestBuilder<crate::model::CreateGrpcRouteRequest>);
 
     impl CreateGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2499,7 +2579,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::GrpcRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::GrpcRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::GrpcRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2524,7 +2604,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGrpcRouteRequest::parent].
@@ -2567,7 +2647,9 @@ pub mod network_services {
     pub struct UpdateGrpcRoute(RequestBuilder<crate::model::UpdateGrpcRouteRequest>);
 
     impl UpdateGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2601,7 +2683,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::GrpcRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::GrpcRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::GrpcRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2626,7 +2708,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGrpcRouteRequest::update_mask].
@@ -2662,7 +2744,9 @@ pub mod network_services {
     pub struct DeleteGrpcRoute(RequestBuilder<crate::model::DeleteGrpcRouteRequest>);
 
     impl DeleteGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2693,7 +2777,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_grpc_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2718,7 +2802,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGrpcRouteRequest::name].
@@ -2742,7 +2826,9 @@ pub mod network_services {
     pub struct ListHttpRoutes(RequestBuilder<crate::model::ListHttpRoutesRequest>);
 
     impl ListHttpRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2814,7 +2900,9 @@ pub mod network_services {
     pub struct GetHttpRoute(RequestBuilder<crate::model::GetHttpRouteRequest>);
 
     impl GetHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2859,7 +2947,9 @@ pub mod network_services {
     pub struct CreateHttpRoute(RequestBuilder<crate::model::CreateHttpRouteRequest>);
 
     impl CreateHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2893,7 +2983,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::HttpRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::HttpRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::HttpRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2918,7 +3008,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateHttpRouteRequest::parent].
@@ -2961,7 +3051,9 @@ pub mod network_services {
     pub struct UpdateHttpRoute(RequestBuilder<crate::model::UpdateHttpRouteRequest>);
 
     impl UpdateHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2995,7 +3087,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::HttpRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::HttpRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::HttpRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3020,7 +3112,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHttpRouteRequest::update_mask].
@@ -3056,7 +3148,9 @@ pub mod network_services {
     pub struct DeleteHttpRoute(RequestBuilder<crate::model::DeleteHttpRouteRequest>);
 
     impl DeleteHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3087,7 +3181,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_http_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3112,7 +3206,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteHttpRouteRequest::name].
@@ -3136,7 +3230,9 @@ pub mod network_services {
     pub struct ListTcpRoutes(RequestBuilder<crate::model::ListTcpRoutesRequest>);
 
     impl ListTcpRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3208,7 +3304,9 @@ pub mod network_services {
     pub struct GetTcpRoute(RequestBuilder<crate::model::GetTcpRouteRequest>);
 
     impl GetTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3253,7 +3351,9 @@ pub mod network_services {
     pub struct CreateTcpRoute(RequestBuilder<crate::model::CreateTcpRouteRequest>);
 
     impl CreateTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3287,7 +3387,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::TcpRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::TcpRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::TcpRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3312,7 +3412,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTcpRouteRequest::parent].
@@ -3355,7 +3455,9 @@ pub mod network_services {
     pub struct UpdateTcpRoute(RequestBuilder<crate::model::UpdateTcpRouteRequest>);
 
     impl UpdateTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3389,7 +3491,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::TcpRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::TcpRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::TcpRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3414,7 +3516,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTcpRouteRequest::update_mask].
@@ -3450,7 +3552,9 @@ pub mod network_services {
     pub struct DeleteTcpRoute(RequestBuilder<crate::model::DeleteTcpRouteRequest>);
 
     impl DeleteTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3481,7 +3585,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tcp_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3506,7 +3610,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTcpRouteRequest::name].
@@ -3530,7 +3634,9 @@ pub mod network_services {
     pub struct ListTlsRoutes(RequestBuilder<crate::model::ListTlsRoutesRequest>);
 
     impl ListTlsRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3602,7 +3708,9 @@ pub mod network_services {
     pub struct GetTlsRoute(RequestBuilder<crate::model::GetTlsRouteRequest>);
 
     impl GetTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3647,7 +3755,9 @@ pub mod network_services {
     pub struct CreateTlsRoute(RequestBuilder<crate::model::CreateTlsRouteRequest>);
 
     impl CreateTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3681,7 +3791,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::TlsRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::TlsRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::TlsRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3706,7 +3816,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTlsRouteRequest::parent].
@@ -3749,7 +3859,9 @@ pub mod network_services {
     pub struct UpdateTlsRoute(RequestBuilder<crate::model::UpdateTlsRouteRequest>);
 
     impl UpdateTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3783,7 +3895,7 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::TlsRoute, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::TlsRoute, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::TlsRoute, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3808,7 +3920,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTlsRouteRequest::update_mask].
@@ -3844,7 +3956,9 @@ pub mod network_services {
     pub struct DeleteTlsRoute(RequestBuilder<crate::model::DeleteTlsRouteRequest>);
 
     impl DeleteTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3875,7 +3989,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tls_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3900,7 +4014,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTlsRouteRequest::name].
@@ -3924,7 +4038,9 @@ pub mod network_services {
     pub struct ListServiceBindings(RequestBuilder<crate::model::ListServiceBindingsRequest>);
 
     impl ListServiceBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3999,7 +4115,9 @@ pub mod network_services {
     pub struct GetServiceBinding(RequestBuilder<crate::model::GetServiceBindingRequest>);
 
     impl GetServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4047,7 +4165,9 @@ pub mod network_services {
     pub struct CreateServiceBinding(RequestBuilder<crate::model::CreateServiceBindingRequest>);
 
     impl CreateServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4084,8 +4204,10 @@ pub mod network_services {
             self,
         ) -> impl lro::Poller<crate::model::ServiceBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ServiceBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ServiceBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4110,7 +4232,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceBindingRequest::parent].
@@ -4153,7 +4275,9 @@ pub mod network_services {
     pub struct DeleteServiceBinding(RequestBuilder<crate::model::DeleteServiceBindingRequest>);
 
     impl DeleteServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4187,7 +4311,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4212,7 +4336,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceBindingRequest::name].
@@ -4236,7 +4360,9 @@ pub mod network_services {
     pub struct ListMeshes(RequestBuilder<crate::model::ListMeshesRequest>);
 
     impl ListMeshes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4308,7 +4434,9 @@ pub mod network_services {
     pub struct GetMesh(RequestBuilder<crate::model::GetMeshRequest>);
 
     impl GetMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4353,7 +4481,9 @@ pub mod network_services {
     pub struct CreateMesh(RequestBuilder<crate::model::CreateMeshRequest>);
 
     impl CreateMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4386,7 +4516,8 @@ pub mod network_services {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Mesh, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Mesh, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Mesh, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4411,7 +4542,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMeshRequest::parent].
@@ -4451,7 +4582,9 @@ pub mod network_services {
     pub struct UpdateMesh(RequestBuilder<crate::model::UpdateMeshRequest>);
 
     impl UpdateMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4484,7 +4617,8 @@ pub mod network_services {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Mesh, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Mesh, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Mesh, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4509,7 +4643,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMeshRequest::update_mask].
@@ -4542,7 +4676,9 @@ pub mod network_services {
     pub struct DeleteMesh(RequestBuilder<crate::model::DeleteMeshRequest>);
 
     impl DeleteMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4573,7 +4709,7 @@ pub mod network_services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_mesh`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4598,7 +4734,7 @@ pub mod network_services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMeshRequest::name].
@@ -4622,7 +4758,9 @@ pub mod network_services {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4701,7 +4839,9 @@ pub mod network_services {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4744,7 +4884,9 @@ pub mod network_services {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4809,7 +4951,9 @@ pub mod network_services {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4863,7 +5007,9 @@ pub mod network_services {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4924,7 +5070,9 @@ pub mod network_services {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5003,7 +5151,9 @@ pub mod network_services {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5049,7 +5199,9 @@ pub mod network_services {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5095,7 +5247,9 @@ pub mod network_services {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

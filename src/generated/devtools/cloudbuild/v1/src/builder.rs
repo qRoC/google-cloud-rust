@@ -16,7 +16,6 @@
 
 pub mod cloud_build {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudBuild][super::super::client::CloudBuild].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_build {
     /// Common implementation for [super::super::client::CloudBuild] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_build {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_build {
     pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
 
     impl CreateBuild {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -106,7 +109,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -131,7 +134,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBuildRequest::parent].
@@ -172,7 +175,9 @@ pub mod cloud_build {
     pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
 
     impl GetBuild {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -231,7 +236,9 @@ pub mod cloud_build {
     pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
 
     impl ListBuilds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,7 +322,9 @@ pub mod cloud_build {
     pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
 
     impl CancelBuild {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,7 +383,9 @@ pub mod cloud_build {
     pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
 
     impl RetryBuild {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -408,7 +419,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -433,7 +444,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RetryBuildRequest::name].
@@ -471,7 +482,9 @@ pub mod cloud_build {
     pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
 
     impl ApproveBuild {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -505,7 +518,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -530,7 +543,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ApproveBuildRequest::name].
@@ -563,7 +576,9 @@ pub mod cloud_build {
     pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
 
     impl CreateBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -628,7 +643,9 @@ pub mod cloud_build {
     pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
     impl GetBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -687,7 +704,9 @@ pub mod cloud_build {
     pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
     impl ListBuildTriggers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -768,7 +787,9 @@ pub mod cloud_build {
     pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
 
     impl DeleteBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -830,7 +851,9 @@ pub mod cloud_build {
     pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
 
     impl UpdateBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -906,7 +929,9 @@ pub mod cloud_build {
     pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
     impl RunBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -940,7 +965,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -965,7 +990,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunBuildTriggerRequest::name].
@@ -1012,7 +1037,9 @@ pub mod cloud_build {
     pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
 
     impl ReceiveTriggerWebhook {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1085,7 +1112,9 @@ pub mod cloud_build {
     pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
     impl CreateWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1122,7 +1151,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::CreateWorkerPoolOperationMetadata,
             >;
@@ -1150,7 +1179,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
@@ -1199,7 +1228,9 @@ pub mod cloud_build {
     pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
     impl GetWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1244,7 +1275,9 @@ pub mod cloud_build {
     pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
     impl DeleteWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1280,8 +1313,10 @@ pub mod cloud_build {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata> {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteWorkerPoolOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1306,7 +1341,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
@@ -1348,7 +1383,9 @@ pub mod cloud_build {
     pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
     impl UpdateWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1385,7 +1422,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::UpdateWorkerPoolOperationMetadata,
             >;
@@ -1413,7 +1450,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
@@ -1455,7 +1492,9 @@ pub mod cloud_build {
     pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
     impl ListWorkerPools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1527,7 +1566,9 @@ pub mod cloud_build {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1573,7 +1614,9 @@ pub mod cloud_build {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

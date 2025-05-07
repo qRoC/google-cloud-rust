@@ -16,7 +16,6 @@
 
 pub mod repository_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RepositoryManager][super::super::client::RepositoryManager].
     ///
@@ -49,7 +48,7 @@ pub mod repository_manager {
     /// Common implementation for [super::super::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod repository_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod repository_manager {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,7 +112,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +137,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -177,7 +180,9 @@ pub mod repository_manager {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +227,9 @@ pub mod repository_manager {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -294,7 +301,9 @@ pub mod repository_manager {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -331,7 +340,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -356,7 +365,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
@@ -404,7 +413,9 @@ pub mod repository_manager {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +449,7 @@ pub mod repository_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -463,7 +474,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
@@ -499,7 +510,9 @@ pub mod repository_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -536,7 +549,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -561,7 +574,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -606,7 +619,9 @@ pub mod repository_manager {
     );
 
     impl BatchCreateRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +660,7 @@ pub mod repository_manager {
             crate::model::BatchCreateRepositoriesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateRepositoriesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -673,7 +688,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
@@ -710,7 +725,9 @@ pub mod repository_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -755,7 +772,9 @@ pub mod repository_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,7 +855,9 @@ pub mod repository_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -870,7 +891,7 @@ pub mod repository_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -895,7 +916,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -931,7 +952,9 @@ pub mod repository_manager {
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,7 +1002,9 @@ pub mod repository_manager {
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1026,7 +1051,9 @@ pub mod repository_manager {
     );
 
     impl FetchLinkableRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1103,7 +1130,9 @@ pub mod repository_manager {
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1157,7 +1186,9 @@ pub mod repository_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1222,7 +1253,9 @@ pub mod repository_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1276,7 +1309,9 @@ pub mod repository_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1337,7 +1372,9 @@ pub mod repository_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1383,7 +1420,9 @@ pub mod repository_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

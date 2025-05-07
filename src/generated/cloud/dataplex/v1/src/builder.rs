@@ -16,7 +16,6 @@
 
 pub mod catalog_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CatalogService][super::super::client::CatalogService].
     ///
@@ -49,7 +48,7 @@ pub mod catalog_service {
     /// Common implementation for [super::super::client::CatalogService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CatalogService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod catalog_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod catalog_service {
     pub struct CreateEntryType(RequestBuilder<crate::model::CreateEntryTypeRequest>);
 
     impl CreateEntryType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -106,7 +109,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::EntryType, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::EntryType, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::EntryType, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -131,7 +134,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryTypeRequest::parent].
@@ -180,7 +183,9 @@ pub mod catalog_service {
     pub struct UpdateEntryType(RequestBuilder<crate::model::UpdateEntryTypeRequest>);
 
     impl UpdateEntryType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -214,7 +219,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::EntryType, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::EntryType, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::EntryType, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -239,7 +244,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entry_type][crate::model::UpdateEntryTypeRequest::entry_type].
@@ -283,7 +288,9 @@ pub mod catalog_service {
     pub struct DeleteEntryType(RequestBuilder<crate::model::DeleteEntryTypeRequest>);
 
     impl DeleteEntryType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -314,7 +321,7 @@ pub mod catalog_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_entry_type`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -339,7 +346,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryTypeRequest::name].
@@ -369,7 +376,9 @@ pub mod catalog_service {
     pub struct ListEntryTypes(RequestBuilder<crate::model::ListEntryTypesRequest>);
 
     impl ListEntryTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -453,7 +462,9 @@ pub mod catalog_service {
     pub struct GetEntryType(RequestBuilder<crate::model::GetEntryTypeRequest>);
 
     impl GetEntryType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -498,7 +509,9 @@ pub mod catalog_service {
     pub struct CreateAspectType(RequestBuilder<crate::model::CreateAspectTypeRequest>);
 
     impl CreateAspectType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -535,7 +548,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::AspectType, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AspectType, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AspectType, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -560,7 +573,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAspectTypeRequest::parent].
@@ -609,7 +622,9 @@ pub mod catalog_service {
     pub struct UpdateAspectType(RequestBuilder<crate::model::UpdateAspectTypeRequest>);
 
     impl UpdateAspectType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -646,7 +661,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::AspectType, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AspectType, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AspectType, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -671,7 +686,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [aspect_type][crate::model::UpdateAspectTypeRequest::aspect_type].
@@ -715,7 +730,9 @@ pub mod catalog_service {
     pub struct DeleteAspectType(RequestBuilder<crate::model::DeleteAspectTypeRequest>);
 
     impl DeleteAspectType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -749,7 +766,7 @@ pub mod catalog_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aspect_type`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -774,7 +791,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAspectTypeRequest::name].
@@ -804,7 +821,9 @@ pub mod catalog_service {
     pub struct ListAspectTypes(RequestBuilder<crate::model::ListAspectTypesRequest>);
 
     impl ListAspectTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -888,7 +907,9 @@ pub mod catalog_service {
     pub struct GetAspectType(RequestBuilder<crate::model::GetAspectTypeRequest>);
 
     impl GetAspectType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -933,7 +954,9 @@ pub mod catalog_service {
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
     impl CreateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -970,7 +993,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::EntryGroup, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::EntryGroup, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::EntryGroup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -995,7 +1018,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
@@ -1044,7 +1067,9 @@ pub mod catalog_service {
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
     impl UpdateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1081,7 +1106,7 @@ pub mod catalog_service {
             self,
         ) -> impl lro::Poller<crate::model::EntryGroup, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::EntryGroup, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::EntryGroup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1106,7 +1131,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
@@ -1150,7 +1175,9 @@ pub mod catalog_service {
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
     impl DeleteEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1184,7 +1211,7 @@ pub mod catalog_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_entry_group`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1209,7 +1236,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
@@ -1239,7 +1266,9 @@ pub mod catalog_service {
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
     impl ListEntryGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1323,7 +1352,9 @@ pub mod catalog_service {
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
     impl GetEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,7 +1399,9 @@ pub mod catalog_service {
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
     impl CreateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1432,7 +1465,9 @@ pub mod catalog_service {
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
     impl UpdateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1512,7 +1547,9 @@ pub mod catalog_service {
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
     impl DeleteEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1557,7 +1594,9 @@ pub mod catalog_service {
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
     impl ListEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1635,7 +1674,9 @@ pub mod catalog_service {
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
     impl GetEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,7 +1749,9 @@ pub mod catalog_service {
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
     impl LookupEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1746,14 +1789,6 @@ pub mod catalog_service {
             self
         }
 
-        /// Sets the value of [entry][crate::model::LookupEntryRequest::entry].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.entry = v.into();
-            self
-        }
-
         /// Sets the value of [aspect_types][crate::model::LookupEntryRequest::aspect_types].
         pub fn set_aspect_types<T, V>(mut self, v: T) -> Self
         where
@@ -1775,6 +1810,14 @@ pub mod catalog_service {
             self.0.request.paths = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [entry][crate::model::LookupEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entry<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entry = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1789,7 +1832,9 @@ pub mod catalog_service {
     pub struct SearchEntries(RequestBuilder<crate::model::SearchEntriesRequest>);
 
     impl SearchEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1881,7 +1926,9 @@ pub mod catalog_service {
     pub struct CreateMetadataJob(RequestBuilder<crate::model::CreateMetadataJobRequest>);
 
     impl CreateMetadataJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1917,8 +1964,10 @@ pub mod catalog_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MetadataJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MetadataJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1943,7 +1992,7 @@ pub mod catalog_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataJobRequest::parent].
@@ -1990,7 +2039,9 @@ pub mod catalog_service {
     pub struct GetMetadataJob(RequestBuilder<crate::model::GetMetadataJobRequest>);
 
     impl GetMetadataJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2035,7 +2086,9 @@ pub mod catalog_service {
     pub struct ListMetadataJobs(RequestBuilder<crate::model::ListMetadataJobsRequest>);
 
     impl ListMetadataJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2122,7 +2175,9 @@ pub mod catalog_service {
     pub struct CancelMetadataJob(RequestBuilder<crate::model::CancelMetadataJobRequest>);
 
     impl CancelMetadataJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2170,7 +2225,9 @@ pub mod catalog_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2249,7 +2306,9 @@ pub mod catalog_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2292,7 +2351,9 @@ pub mod catalog_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2357,7 +2418,9 @@ pub mod catalog_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2411,7 +2474,9 @@ pub mod catalog_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2472,7 +2537,9 @@ pub mod catalog_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2551,7 +2618,9 @@ pub mod catalog_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2597,7 +2666,9 @@ pub mod catalog_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2643,7 +2714,9 @@ pub mod catalog_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CatalogService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2687,7 +2760,6 @@ pub mod catalog_service {
 
 pub mod cmek_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CmekService][super::super::client::CmekService].
     ///
@@ -2720,7 +2792,7 @@ pub mod cmek_service {
     /// Common implementation for [super::super::client::CmekService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CmekService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2729,7 +2801,9 @@ pub mod cmek_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2743,7 +2817,9 @@ pub mod cmek_service {
     pub struct CreateEncryptionConfig(RequestBuilder<crate::model::CreateEncryptionConfigRequest>);
 
     impl CreateEncryptionConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2780,8 +2856,10 @@ pub mod cmek_service {
             self,
         ) -> impl lro::Poller<crate::model::EncryptionConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::EncryptionConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EncryptionConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2806,7 +2884,7 @@ pub mod cmek_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEncryptionConfigRequest::parent].
@@ -2851,7 +2929,9 @@ pub mod cmek_service {
     pub struct UpdateEncryptionConfig(RequestBuilder<crate::model::UpdateEncryptionConfigRequest>);
 
     impl UpdateEncryptionConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2888,8 +2968,10 @@ pub mod cmek_service {
             self,
         ) -> impl lro::Poller<crate::model::EncryptionConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::EncryptionConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EncryptionConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2914,7 +2996,7 @@ pub mod cmek_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [encryption_config][crate::model::UpdateEncryptionConfigRequest::encryption_config].
@@ -2952,7 +3034,9 @@ pub mod cmek_service {
     pub struct DeleteEncryptionConfig(RequestBuilder<crate::model::DeleteEncryptionConfigRequest>);
 
     impl DeleteEncryptionConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2986,7 +3070,7 @@ pub mod cmek_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_encryption_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3011,7 +3095,7 @@ pub mod cmek_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEncryptionConfigRequest::name].
@@ -3041,7 +3125,9 @@ pub mod cmek_service {
     pub struct ListEncryptionConfigs(RequestBuilder<crate::model::ListEncryptionConfigsRequest>);
 
     impl ListEncryptionConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3128,7 +3214,9 @@ pub mod cmek_service {
     pub struct GetEncryptionConfig(RequestBuilder<crate::model::GetEncryptionConfigRequest>);
 
     impl GetEncryptionConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3176,7 +3264,9 @@ pub mod cmek_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3255,7 +3345,9 @@ pub mod cmek_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3298,7 +3390,9 @@ pub mod cmek_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3363,7 +3457,9 @@ pub mod cmek_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3417,7 +3513,9 @@ pub mod cmek_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3478,7 +3576,9 @@ pub mod cmek_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3557,7 +3657,9 @@ pub mod cmek_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3603,7 +3705,9 @@ pub mod cmek_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3649,7 +3753,9 @@ pub mod cmek_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CmekService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3693,7 +3799,6 @@ pub mod cmek_service {
 
 pub mod content_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContentService][super::super::client::ContentService].
     ///
@@ -3726,7 +3831,7 @@ pub mod content_service {
     /// Common implementation for [super::super::client::ContentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3735,7 +3840,9 @@ pub mod content_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3749,7 +3856,9 @@ pub mod content_service {
     pub struct CreateContent(RequestBuilder<crate::model::CreateContentRequest>);
 
     impl CreateContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3811,7 +3920,9 @@ pub mod content_service {
     pub struct UpdateContent(RequestBuilder<crate::model::UpdateContentRequest>);
 
     impl UpdateContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3876,7 +3987,9 @@ pub mod content_service {
     pub struct DeleteContent(RequestBuilder<crate::model::DeleteContentRequest>);
 
     impl DeleteContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3921,7 +4034,9 @@ pub mod content_service {
     pub struct GetContent(RequestBuilder<crate::model::GetContentRequest>);
 
     impl GetContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3975,7 +4090,9 @@ pub mod content_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4029,7 +4146,9 @@ pub mod content_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4094,7 +4213,9 @@ pub mod content_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4155,7 +4276,9 @@ pub mod content_service {
     pub struct ListContent(RequestBuilder<crate::model::ListContentRequest>);
 
     impl ListContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4233,7 +4356,9 @@ pub mod content_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4312,7 +4437,9 @@ pub mod content_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4355,7 +4482,9 @@ pub mod content_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4434,7 +4563,9 @@ pub mod content_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4480,7 +4611,9 @@ pub mod content_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4526,7 +4659,9 @@ pub mod content_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4570,7 +4705,6 @@ pub mod content_service {
 
 pub mod data_taxonomy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataTaxonomyService][super::super::client::DataTaxonomyService].
     ///
@@ -4603,7 +4737,7 @@ pub mod data_taxonomy_service {
     /// Common implementation for [super::super::client::DataTaxonomyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4612,7 +4746,9 @@ pub mod data_taxonomy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4626,7 +4762,9 @@ pub mod data_taxonomy_service {
     pub struct CreateDataTaxonomy(RequestBuilder<crate::model::CreateDataTaxonomyRequest>);
 
     impl CreateDataTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4662,8 +4800,10 @@ pub mod data_taxonomy_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::DataTaxonomy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::DataTaxonomy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataTaxonomy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4688,7 +4828,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataTaxonomyRequest::parent].
@@ -4737,7 +4877,9 @@ pub mod data_taxonomy_service {
     pub struct UpdateDataTaxonomy(RequestBuilder<crate::model::UpdateDataTaxonomyRequest>);
 
     impl UpdateDataTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4773,8 +4915,10 @@ pub mod data_taxonomy_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::DataTaxonomy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::DataTaxonomy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataTaxonomy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4799,7 +4943,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataTaxonomyRequest::update_mask].
@@ -4843,7 +4987,9 @@ pub mod data_taxonomy_service {
     pub struct DeleteDataTaxonomy(RequestBuilder<crate::model::DeleteDataTaxonomyRequest>);
 
     impl DeleteDataTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4877,7 +5023,7 @@ pub mod data_taxonomy_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_taxonomy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4902,7 +5048,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataTaxonomyRequest::name].
@@ -4932,7 +5078,9 @@ pub mod data_taxonomy_service {
     pub struct ListDataTaxonomies(RequestBuilder<crate::model::ListDataTaxonomiesRequest>);
 
     impl ListDataTaxonomies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5019,7 +5167,9 @@ pub mod data_taxonomy_service {
     pub struct GetDataTaxonomy(RequestBuilder<crate::model::GetDataTaxonomyRequest>);
 
     impl GetDataTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5066,7 +5216,9 @@ pub mod data_taxonomy_service {
     );
 
     impl CreateDataAttributeBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5103,8 +5255,10 @@ pub mod data_taxonomy_service {
             self,
         ) -> impl lro::Poller<crate::model::DataAttributeBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataAttributeBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataAttributeBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5129,7 +5283,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataAttributeBindingRequest::parent].
@@ -5182,7 +5336,9 @@ pub mod data_taxonomy_service {
     );
 
     impl UpdateDataAttributeBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5219,8 +5375,10 @@ pub mod data_taxonomy_service {
             self,
         ) -> impl lro::Poller<crate::model::DataAttributeBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataAttributeBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataAttributeBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5245,7 +5403,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAttributeBindingRequest::update_mask].
@@ -5293,7 +5451,9 @@ pub mod data_taxonomy_service {
     );
 
     impl DeleteDataAttributeBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5327,7 +5487,7 @@ pub mod data_taxonomy_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_attribute_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5352,7 +5512,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataAttributeBindingRequest::name].
@@ -5386,7 +5546,9 @@ pub mod data_taxonomy_service {
     );
 
     impl ListDataAttributeBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5477,7 +5639,9 @@ pub mod data_taxonomy_service {
     );
 
     impl GetDataAttributeBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5525,7 +5689,9 @@ pub mod data_taxonomy_service {
     pub struct CreateDataAttribute(RequestBuilder<crate::model::CreateDataAttributeRequest>);
 
     impl CreateDataAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5562,8 +5728,10 @@ pub mod data_taxonomy_service {
             self,
         ) -> impl lro::Poller<crate::model::DataAttribute, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataAttribute, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataAttribute,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5588,7 +5756,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataAttributeRequest::parent].
@@ -5637,7 +5805,9 @@ pub mod data_taxonomy_service {
     pub struct UpdateDataAttribute(RequestBuilder<crate::model::UpdateDataAttributeRequest>);
 
     impl UpdateDataAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5674,8 +5844,10 @@ pub mod data_taxonomy_service {
             self,
         ) -> impl lro::Poller<crate::model::DataAttribute, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataAttribute, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataAttribute,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5700,7 +5872,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAttributeRequest::update_mask].
@@ -5744,7 +5916,9 @@ pub mod data_taxonomy_service {
     pub struct DeleteDataAttribute(RequestBuilder<crate::model::DeleteDataAttributeRequest>);
 
     impl DeleteDataAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5778,7 +5952,7 @@ pub mod data_taxonomy_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_attribute`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5803,7 +5977,7 @@ pub mod data_taxonomy_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataAttributeRequest::name].
@@ -5833,7 +6007,9 @@ pub mod data_taxonomy_service {
     pub struct ListDataAttributes(RequestBuilder<crate::model::ListDataAttributesRequest>);
 
     impl ListDataAttributes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5920,7 +6096,9 @@ pub mod data_taxonomy_service {
     pub struct GetDataAttribute(RequestBuilder<crate::model::GetDataAttributeRequest>);
 
     impl GetDataAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5968,7 +6146,9 @@ pub mod data_taxonomy_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6047,7 +6227,9 @@ pub mod data_taxonomy_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6090,7 +6272,9 @@ pub mod data_taxonomy_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6155,7 +6339,9 @@ pub mod data_taxonomy_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6209,7 +6395,9 @@ pub mod data_taxonomy_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6270,7 +6458,9 @@ pub mod data_taxonomy_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6349,7 +6539,9 @@ pub mod data_taxonomy_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6395,7 +6587,9 @@ pub mod data_taxonomy_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6441,7 +6635,9 @@ pub mod data_taxonomy_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTaxonomyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6485,7 +6681,6 @@ pub mod data_taxonomy_service {
 
 pub mod data_scan_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataScanService][super::super::client::DataScanService].
     ///
@@ -6518,7 +6713,7 @@ pub mod data_scan_service {
     /// Common implementation for [super::super::client::DataScanService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataScanService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6527,7 +6722,9 @@ pub mod data_scan_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -6541,7 +6738,9 @@ pub mod data_scan_service {
     pub struct CreateDataScan(RequestBuilder<crate::model::CreateDataScanRequest>);
 
     impl CreateDataScan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6575,7 +6774,7 @@ pub mod data_scan_service {
             self,
         ) -> impl lro::Poller<crate::model::DataScan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::DataScan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::DataScan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6600,7 +6799,7 @@ pub mod data_scan_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataScanRequest::parent].
@@ -6649,7 +6848,9 @@ pub mod data_scan_service {
     pub struct UpdateDataScan(RequestBuilder<crate::model::UpdateDataScanRequest>);
 
     impl UpdateDataScan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6683,7 +6884,7 @@ pub mod data_scan_service {
             self,
         ) -> impl lro::Poller<crate::model::DataScan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::DataScan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::DataScan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6708,7 +6909,7 @@ pub mod data_scan_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [data_scan][crate::model::UpdateDataScanRequest::data_scan].
@@ -6750,7 +6951,9 @@ pub mod data_scan_service {
     pub struct DeleteDataScan(RequestBuilder<crate::model::DeleteDataScanRequest>);
 
     impl DeleteDataScan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6781,7 +6984,7 @@ pub mod data_scan_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_scan`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6806,7 +7009,7 @@ pub mod data_scan_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataScanRequest::name].
@@ -6836,7 +7039,9 @@ pub mod data_scan_service {
     pub struct GetDataScan(RequestBuilder<crate::model::GetDataScanRequest>);
 
     impl GetDataScan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6890,7 +7095,9 @@ pub mod data_scan_service {
     pub struct ListDataScans(RequestBuilder<crate::model::ListDataScansRequest>);
 
     impl ListDataScans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6974,7 +7181,9 @@ pub mod data_scan_service {
     pub struct RunDataScan(RequestBuilder<crate::model::RunDataScanRequest>);
 
     impl RunDataScan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7019,7 +7228,9 @@ pub mod data_scan_service {
     pub struct GetDataScanJob(RequestBuilder<crate::model::GetDataScanJobRequest>);
 
     impl GetDataScanJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7073,7 +7284,9 @@ pub mod data_scan_service {
     pub struct ListDataScanJobs(RequestBuilder<crate::model::ListDataScanJobsRequest>);
 
     impl ListDataScanJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7156,7 +7369,9 @@ pub mod data_scan_service {
     );
 
     impl GenerateDataQualityRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7204,7 +7419,9 @@ pub mod data_scan_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7283,7 +7500,9 @@ pub mod data_scan_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7326,7 +7545,9 @@ pub mod data_scan_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7391,7 +7612,9 @@ pub mod data_scan_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7445,7 +7668,9 @@ pub mod data_scan_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7506,7 +7731,9 @@ pub mod data_scan_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7585,7 +7812,9 @@ pub mod data_scan_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7631,7 +7860,9 @@ pub mod data_scan_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7677,7 +7908,9 @@ pub mod data_scan_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataScanService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7721,7 +7954,6 @@ pub mod data_scan_service {
 
 pub mod metadata_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [MetadataService][super::super::client::MetadataService].
     ///
@@ -7754,7 +7986,7 @@ pub mod metadata_service {
     /// Common implementation for [super::super::client::MetadataService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MetadataService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -7763,7 +7995,9 @@ pub mod metadata_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -7777,7 +8011,9 @@ pub mod metadata_service {
     pub struct CreateEntity(RequestBuilder<crate::model::CreateEntityRequest>);
 
     impl CreateEntity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7839,7 +8075,9 @@ pub mod metadata_service {
     pub struct UpdateEntity(RequestBuilder<crate::model::UpdateEntityRequest>);
 
     impl UpdateEntity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7893,7 +8131,9 @@ pub mod metadata_service {
     pub struct DeleteEntity(RequestBuilder<crate::model::DeleteEntityRequest>);
 
     impl DeleteEntity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7946,7 +8186,9 @@ pub mod metadata_service {
     pub struct GetEntity(RequestBuilder<crate::model::GetEntityRequest>);
 
     impl GetEntity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8000,7 +8242,9 @@ pub mod metadata_service {
     pub struct ListEntities(RequestBuilder<crate::model::ListEntitiesRequest>);
 
     impl ListEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8089,7 +8333,9 @@ pub mod metadata_service {
     pub struct CreatePartition(RequestBuilder<crate::model::CreatePartitionRequest>);
 
     impl CreatePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8151,7 +8397,9 @@ pub mod metadata_service {
     pub struct DeletePartition(RequestBuilder<crate::model::DeletePartitionRequest>);
 
     impl DeletePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8203,7 +8451,9 @@ pub mod metadata_service {
     pub struct GetPartition(RequestBuilder<crate::model::GetPartitionRequest>);
 
     impl GetPartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8248,7 +8498,9 @@ pub mod metadata_service {
     pub struct ListPartitions(RequestBuilder<crate::model::ListPartitionsRequest>);
 
     impl ListPartitions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8326,7 +8578,9 @@ pub mod metadata_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8405,7 +8659,9 @@ pub mod metadata_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8448,7 +8704,9 @@ pub mod metadata_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8513,7 +8771,9 @@ pub mod metadata_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8567,7 +8827,9 @@ pub mod metadata_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8628,7 +8890,9 @@ pub mod metadata_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8707,7 +8971,9 @@ pub mod metadata_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8753,7 +9019,9 @@ pub mod metadata_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8799,7 +9067,9 @@ pub mod metadata_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetadataService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8843,7 +9113,6 @@ pub mod metadata_service {
 
 pub mod dataplex_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataplexService][super::super::client::DataplexService].
     ///
@@ -8876,7 +9145,7 @@ pub mod dataplex_service {
     /// Common implementation for [super::super::client::DataplexService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataplexService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -8885,7 +9154,9 @@ pub mod dataplex_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -8899,7 +9170,9 @@ pub mod dataplex_service {
     pub struct CreateLake(RequestBuilder<crate::model::CreateLakeRequest>);
 
     impl CreateLake {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8932,7 +9205,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Lake, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Lake, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Lake, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8957,7 +9231,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLakeRequest::parent].
@@ -9003,7 +9277,9 @@ pub mod dataplex_service {
     pub struct UpdateLake(RequestBuilder<crate::model::UpdateLakeRequest>);
 
     impl UpdateLake {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9036,7 +9312,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Lake, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Lake, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Lake, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9061,7 +9338,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLakeRequest::update_mask].
@@ -9102,7 +9379,9 @@ pub mod dataplex_service {
     pub struct DeleteLake(RequestBuilder<crate::model::DeleteLakeRequest>);
 
     impl DeleteLake {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9133,7 +9412,7 @@ pub mod dataplex_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_lake`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9158,7 +9437,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLakeRequest::name].
@@ -9182,7 +9461,9 @@ pub mod dataplex_service {
     pub struct ListLakes(RequestBuilder<crate::model::ListLakesRequest>);
 
     impl ListLakes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9266,7 +9547,9 @@ pub mod dataplex_service {
     pub struct GetLake(RequestBuilder<crate::model::GetLakeRequest>);
 
     impl GetLake {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9311,7 +9594,9 @@ pub mod dataplex_service {
     pub struct ListLakeActions(RequestBuilder<crate::model::ListLakeActionsRequest>);
 
     impl ListLakeActions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9383,7 +9668,9 @@ pub mod dataplex_service {
     pub struct CreateZone(RequestBuilder<crate::model::CreateZoneRequest>);
 
     impl CreateZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9416,7 +9703,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Zone, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Zone, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Zone, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9441,7 +9729,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateZoneRequest::parent].
@@ -9487,7 +9775,9 @@ pub mod dataplex_service {
     pub struct UpdateZone(RequestBuilder<crate::model::UpdateZoneRequest>);
 
     impl UpdateZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9520,7 +9810,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Zone, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Zone, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Zone, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9545,7 +9836,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateZoneRequest::update_mask].
@@ -9586,7 +9877,9 @@ pub mod dataplex_service {
     pub struct DeleteZone(RequestBuilder<crate::model::DeleteZoneRequest>);
 
     impl DeleteZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9617,7 +9910,7 @@ pub mod dataplex_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_zone`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9642,7 +9935,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteZoneRequest::name].
@@ -9666,7 +9959,9 @@ pub mod dataplex_service {
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
     impl ListZones {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9750,7 +10045,9 @@ pub mod dataplex_service {
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
     impl GetZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9795,7 +10092,9 @@ pub mod dataplex_service {
     pub struct ListZoneActions(RequestBuilder<crate::model::ListZoneActionsRequest>);
 
     impl ListZoneActions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9867,7 +10166,9 @@ pub mod dataplex_service {
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9900,7 +10201,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9925,7 +10227,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -9974,7 +10276,9 @@ pub mod dataplex_service {
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
     impl UpdateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10007,7 +10311,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10032,7 +10337,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
@@ -10076,7 +10381,9 @@ pub mod dataplex_service {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10107,7 +10414,7 @@ pub mod dataplex_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10132,7 +10439,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -10156,7 +10463,9 @@ pub mod dataplex_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10240,7 +10549,9 @@ pub mod dataplex_service {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10285,7 +10596,9 @@ pub mod dataplex_service {
     pub struct ListAssetActions(RequestBuilder<crate::model::ListAssetActionsRequest>);
 
     impl ListAssetActions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10360,7 +10673,9 @@ pub mod dataplex_service {
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10393,7 +10708,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Task, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Task, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Task, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10418,7 +10734,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
@@ -10464,7 +10780,9 @@ pub mod dataplex_service {
     pub struct UpdateTask(RequestBuilder<crate::model::UpdateTaskRequest>);
 
     impl UpdateTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10497,7 +10815,8 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Task, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Task, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Task, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10522,7 +10841,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTaskRequest::update_mask].
@@ -10563,7 +10882,9 @@ pub mod dataplex_service {
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10594,7 +10915,7 @@ pub mod dataplex_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_task`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -10619,7 +10940,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
@@ -10643,7 +10964,9 @@ pub mod dataplex_service {
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10727,7 +11050,9 @@ pub mod dataplex_service {
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10772,7 +11097,9 @@ pub mod dataplex_service {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10844,7 +11171,9 @@ pub mod dataplex_service {
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10911,7 +11240,9 @@ pub mod dataplex_service {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10956,7 +11287,9 @@ pub mod dataplex_service {
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11001,7 +11334,9 @@ pub mod dataplex_service {
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
     impl CreateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11037,8 +11372,10 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -11063,7 +11400,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
@@ -11112,7 +11449,9 @@ pub mod dataplex_service {
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
     impl UpdateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11148,8 +11487,10 @@ pub mod dataplex_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -11174,7 +11515,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
@@ -11218,7 +11559,9 @@ pub mod dataplex_service {
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
     impl DeleteEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11252,7 +11595,7 @@ pub mod dataplex_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_environment`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -11277,7 +11620,7 @@ pub mod dataplex_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
@@ -11301,7 +11644,9 @@ pub mod dataplex_service {
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
     impl ListEnvironments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11388,7 +11733,9 @@ pub mod dataplex_service {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11433,7 +11780,9 @@ pub mod dataplex_service {
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
     impl ListSessions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11511,7 +11860,9 @@ pub mod dataplex_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11590,7 +11941,9 @@ pub mod dataplex_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11633,7 +11986,9 @@ pub mod dataplex_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11698,7 +12053,9 @@ pub mod dataplex_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11752,7 +12109,9 @@ pub mod dataplex_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11813,7 +12172,9 @@ pub mod dataplex_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11892,7 +12253,9 @@ pub mod dataplex_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11938,7 +12301,9 @@ pub mod dataplex_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11984,7 +12349,9 @@ pub mod dataplex_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataplexService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

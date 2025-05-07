@@ -16,7 +16,6 @@
 
 pub mod instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [InstanceAdmin][super::super::client::InstanceAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod instance_admin {
     /// Common implementation for [super::super::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod instance_admin {
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
     impl ListInstanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,7 +150,9 @@ pub mod instance_admin {
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -195,7 +200,9 @@ pub mod instance_admin {
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
     impl CreateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -232,7 +239,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::CreateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::CreateInstanceConfigMetadata,
             >;
@@ -260,7 +267,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
@@ -309,7 +316,9 @@ pub mod instance_admin {
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
     impl UpdateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -346,7 +355,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::UpdateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::UpdateInstanceConfigMetadata,
             >;
@@ -374,7 +383,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
@@ -418,7 +427,9 @@ pub mod instance_admin {
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
     impl DeleteInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -480,7 +491,9 @@ pub mod instance_admin {
     );
 
     impl ListInstanceConfigOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -563,7 +576,9 @@ pub mod instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -650,7 +665,9 @@ pub mod instance_admin {
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
     impl ListInstancePartitions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -736,7 +753,9 @@ pub mod instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,7 +809,9 @@ pub mod instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,8 +845,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -850,7 +873,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -893,7 +916,9 @@ pub mod instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -927,8 +952,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -953,7 +980,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -991,7 +1018,9 @@ pub mod instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1036,7 +1065,9 @@ pub mod instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1101,7 +1132,9 @@ pub mod instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1155,7 +1188,9 @@ pub mod instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1216,7 +1251,9 @@ pub mod instance_admin {
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
     impl GetInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1266,7 +1303,9 @@ pub mod instance_admin {
     );
 
     impl CreateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1305,7 +1344,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::CreateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::CreateInstancePartitionMetadata,
             >;
@@ -1333,7 +1372,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
@@ -1380,7 +1419,9 @@ pub mod instance_admin {
     );
 
     impl DeleteInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1436,7 +1477,9 @@ pub mod instance_admin {
     );
 
     impl UpdateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1475,7 +1518,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::UpdateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::UpdateInstancePartitionMetadata,
             >;
@@ -1503,7 +1546,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
@@ -1545,7 +1588,9 @@ pub mod instance_admin {
     );
 
     impl ListInstancePartitionOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1637,7 +1682,9 @@ pub mod instance_admin {
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1671,7 +1718,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MoveInstanceResponse, crate::model::MoveInstanceMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveInstanceResponse,
                 crate::model::MoveInstanceMetadata,
             >;
@@ -1699,7 +1746,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::MoveInstanceRequest::name].
@@ -1731,7 +1778,9 @@ pub mod instance_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1810,7 +1859,9 @@ pub mod instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1856,7 +1907,9 @@ pub mod instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1902,7 +1955,9 @@ pub mod instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

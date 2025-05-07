@@ -16,7 +16,6 @@
 
 pub mod autoscaling_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AutoscalingPolicyService][super::super::client::AutoscalingPolicyService].
     ///
@@ -49,7 +48,7 @@ pub mod autoscaling_policy_service {
     /// Common implementation for [super::super::client::AutoscalingPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod autoscaling_policy_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod autoscaling_policy_service {
 
     impl CreateAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -140,7 +139,7 @@ pub mod autoscaling_policy_service {
 
     impl UpdateAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -193,7 +192,7 @@ pub mod autoscaling_policy_service {
 
     impl GetAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -245,7 +244,7 @@ pub mod autoscaling_policy_service {
 
     impl ListAutoscalingPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -326,7 +325,7 @@ pub mod autoscaling_policy_service {
 
     impl DeleteAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -376,7 +375,7 @@ pub mod autoscaling_policy_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -443,7 +442,7 @@ pub mod autoscaling_policy_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -499,7 +498,7 @@ pub mod autoscaling_policy_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -562,7 +561,7 @@ pub mod autoscaling_policy_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -643,7 +642,7 @@ pub mod autoscaling_policy_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -691,7 +690,7 @@ pub mod autoscaling_policy_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -739,7 +738,7 @@ pub mod autoscaling_policy_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -784,7 +783,6 @@ pub mod autoscaling_policy_service {
 
 pub mod batch_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BatchController][super::super::client::BatchController].
     ///
@@ -817,7 +815,7 @@ pub mod batch_controller {
     /// Common implementation for [super::super::client::BatchController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BatchController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -826,7 +824,9 @@ pub mod batch_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -840,7 +840,9 @@ pub mod batch_controller {
     pub struct CreateBatch(RequestBuilder<crate::model::CreateBatchRequest>);
 
     impl CreateBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -874,7 +876,7 @@ pub mod batch_controller {
             self,
         ) -> impl lro::Poller<crate::model::Batch, crate::model::BatchOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
+                lro::internal::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -899,7 +901,7 @@ pub mod batch_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBatchRequest::parent].
@@ -946,7 +948,9 @@ pub mod batch_controller {
     pub struct GetBatch(RequestBuilder<crate::model::GetBatchRequest>);
 
     impl GetBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,7 +995,9 @@ pub mod batch_controller {
     pub struct ListBatches(RequestBuilder<crate::model::ListBatchesRequest>);
 
     impl ListBatches {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1075,7 +1081,9 @@ pub mod batch_controller {
     pub struct DeleteBatch(RequestBuilder<crate::model::DeleteBatchRequest>);
 
     impl DeleteBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1120,7 +1128,9 @@ pub mod batch_controller {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1185,7 +1195,9 @@ pub mod batch_controller {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1239,7 +1251,9 @@ pub mod batch_controller {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1300,7 +1314,9 @@ pub mod batch_controller {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1379,7 +1395,9 @@ pub mod batch_controller {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1425,7 +1443,9 @@ pub mod batch_controller {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1471,7 +1491,9 @@ pub mod batch_controller {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1515,7 +1537,6 @@ pub mod batch_controller {
 
 pub mod cluster_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ClusterController][super::super::client::ClusterController].
     ///
@@ -1548,7 +1569,7 @@ pub mod cluster_controller {
     /// Common implementation for [super::super::client::ClusterController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClusterController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1557,7 +1578,9 @@ pub mod cluster_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1571,7 +1594,9 @@ pub mod cluster_controller {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1605,8 +1630,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1631,7 +1658,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -1689,7 +1716,9 @@ pub mod cluster_controller {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1723,8 +1752,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1749,7 +1780,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -1826,7 +1857,9 @@ pub mod cluster_controller {
     pub struct StopCluster(RequestBuilder<crate::model::StopClusterRequest>);
 
     impl StopCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1860,8 +1893,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1886,7 +1921,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StopClusterRequest::project_id].
@@ -1938,7 +1973,9 @@ pub mod cluster_controller {
     pub struct StartCluster(RequestBuilder<crate::model::StartClusterRequest>);
 
     impl StartCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1972,8 +2009,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1998,7 +2037,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StartClusterRequest::project_id].
@@ -2050,7 +2089,9 @@ pub mod cluster_controller {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2083,7 +2124,8 @@ pub mod cluster_controller {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClusterOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2108,7 +2150,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -2160,7 +2202,9 @@ pub mod cluster_controller {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,7 +2265,9 @@ pub mod cluster_controller {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2307,7 +2353,9 @@ pub mod cluster_controller {
     pub struct DiagnoseCluster(RequestBuilder<crate::model::DiagnoseClusterRequest>);
 
     impl DiagnoseCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2341,7 +2389,7 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::DiagnoseClusterResults, crate::model::ClusterOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DiagnoseClusterResults,
                 crate::model::ClusterOperationMetadata,
             >;
@@ -2369,7 +2417,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DiagnoseClusterRequest::project_id].
@@ -2457,7 +2505,9 @@ pub mod cluster_controller {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2522,7 +2572,9 @@ pub mod cluster_controller {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2576,7 +2628,9 @@ pub mod cluster_controller {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2637,7 +2691,9 @@ pub mod cluster_controller {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2716,7 +2772,9 @@ pub mod cluster_controller {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2762,7 +2820,9 @@ pub mod cluster_controller {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2808,7 +2868,9 @@ pub mod cluster_controller {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2852,7 +2914,6 @@ pub mod cluster_controller {
 
 pub mod job_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [JobController][super::super::client::JobController].
     ///
@@ -2885,7 +2946,7 @@ pub mod job_controller {
     /// Common implementation for [super::super::client::JobController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::JobController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2894,7 +2955,9 @@ pub mod job_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2908,7 +2971,9 @@ pub mod job_controller {
     pub struct SubmitJob(RequestBuilder<crate::model::SubmitJobRequest>);
 
     impl SubmitJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2975,7 +3040,9 @@ pub mod job_controller {
     pub struct SubmitJobAsOperation(RequestBuilder<crate::model::SubmitJobRequest>);
 
     impl SubmitJobAsOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3006,7 +3073,7 @@ pub mod job_controller {
 
         /// Creates a [Poller][lro::Poller] to work with `submit_job_as_operation`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::JobMetadata> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::JobMetadata>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::JobMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3031,7 +3098,7 @@ pub mod job_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
@@ -3077,7 +3144,9 @@ pub mod job_controller {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3138,7 +3207,9 @@ pub mod job_controller {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3239,7 +3310,9 @@ pub mod job_controller {
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3319,7 +3392,9 @@ pub mod job_controller {
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3380,7 +3455,9 @@ pub mod job_controller {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3441,7 +3518,9 @@ pub mod job_controller {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3506,7 +3585,9 @@ pub mod job_controller {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3560,7 +3641,9 @@ pub mod job_controller {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3621,7 +3704,9 @@ pub mod job_controller {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3700,7 +3785,9 @@ pub mod job_controller {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3746,7 +3833,9 @@ pub mod job_controller {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3792,7 +3881,9 @@ pub mod job_controller {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3836,7 +3927,6 @@ pub mod job_controller {
 
 pub mod node_group_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NodeGroupController][super::super::client::NodeGroupController].
     ///
@@ -3869,7 +3959,7 @@ pub mod node_group_controller {
     /// Common implementation for [super::super::client::NodeGroupController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3878,7 +3968,9 @@ pub mod node_group_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3892,7 +3984,9 @@ pub mod node_group_controller {
     pub struct CreateNodeGroup(RequestBuilder<crate::model::CreateNodeGroupRequest>);
 
     impl CreateNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3926,8 +4020,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3952,7 +4048,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeGroupRequest::parent].
@@ -3999,7 +4095,9 @@ pub mod node_group_controller {
     pub struct ResizeNodeGroup(RequestBuilder<crate::model::ResizeNodeGroupRequest>);
 
     impl ResizeNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4033,8 +4131,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4059,7 +4159,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResizeNodeGroupRequest::name].
@@ -4106,7 +4206,9 @@ pub mod node_group_controller {
     pub struct GetNodeGroup(RequestBuilder<crate::model::GetNodeGroupRequest>);
 
     impl GetNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4151,7 +4253,9 @@ pub mod node_group_controller {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4216,7 +4320,9 @@ pub mod node_group_controller {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4270,7 +4376,9 @@ pub mod node_group_controller {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4331,7 +4439,9 @@ pub mod node_group_controller {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4410,7 +4520,9 @@ pub mod node_group_controller {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4456,7 +4568,9 @@ pub mod node_group_controller {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4502,7 +4616,9 @@ pub mod node_group_controller {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4546,7 +4662,6 @@ pub mod node_group_controller {
 
 pub mod session_template_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SessionTemplateController][super::super::client::SessionTemplateController].
     ///
@@ -4579,7 +4694,7 @@ pub mod session_template_controller {
     /// Common implementation for [super::super::client::SessionTemplateController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4589,7 +4704,7 @@ pub mod session_template_controller {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self {
                 stub,
@@ -4605,7 +4720,7 @@ pub mod session_template_controller {
 
     impl CreateSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4666,7 +4781,7 @@ pub mod session_template_controller {
 
     impl UpdateSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4719,7 +4834,7 @@ pub mod session_template_controller {
 
     impl GetSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4769,7 +4884,7 @@ pub mod session_template_controller {
 
     impl ListSessionTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4852,7 +4967,7 @@ pub mod session_template_controller {
 
     impl DeleteSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4902,7 +5017,7 @@ pub mod session_template_controller {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4969,7 +5084,7 @@ pub mod session_template_controller {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5025,7 +5140,7 @@ pub mod session_template_controller {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5088,7 +5203,7 @@ pub mod session_template_controller {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5169,7 +5284,7 @@ pub mod session_template_controller {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5217,7 +5332,7 @@ pub mod session_template_controller {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5265,7 +5380,7 @@ pub mod session_template_controller {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5310,7 +5425,6 @@ pub mod session_template_controller {
 
 pub mod session_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SessionController][super::super::client::SessionController].
     ///
@@ -5343,7 +5457,7 @@ pub mod session_controller {
     /// Common implementation for [super::super::client::SessionController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SessionController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5352,7 +5466,9 @@ pub mod session_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5366,7 +5482,9 @@ pub mod session_controller {
     pub struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
 
     impl CreateSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5400,8 +5518,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5426,7 +5546,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionRequest::parent].
@@ -5475,7 +5595,9 @@ pub mod session_controller {
     pub struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
 
     impl GetSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5520,7 +5642,9 @@ pub mod session_controller {
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
     impl ListSessions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5598,7 +5722,9 @@ pub mod session_controller {
     pub struct TerminateSession(RequestBuilder<crate::model::TerminateSessionRequest>);
 
     impl TerminateSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5635,8 +5761,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5661,7 +5789,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TerminateSessionRequest::name].
@@ -5691,7 +5819,9 @@ pub mod session_controller {
     pub struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
 
     impl DeleteSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5725,8 +5855,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5751,7 +5883,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
@@ -5781,7 +5913,9 @@ pub mod session_controller {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5846,7 +5980,9 @@ pub mod session_controller {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5900,7 +6036,9 @@ pub mod session_controller {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5961,7 +6099,9 @@ pub mod session_controller {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6040,7 +6180,9 @@ pub mod session_controller {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6086,7 +6228,9 @@ pub mod session_controller {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6132,7 +6276,9 @@ pub mod session_controller {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6176,7 +6322,6 @@ pub mod session_controller {
 
 pub mod workflow_template_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [WorkflowTemplateService][super::super::client::WorkflowTemplateService].
     ///
@@ -6209,7 +6354,7 @@ pub mod workflow_template_service {
     /// Common implementation for [super::super::client::WorkflowTemplateService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6219,7 +6364,7 @@ pub mod workflow_template_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self {
                 stub,
@@ -6235,7 +6380,7 @@ pub mod workflow_template_service {
 
     impl CreateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6296,7 +6441,7 @@ pub mod workflow_template_service {
 
     impl GetWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6354,7 +6499,7 @@ pub mod workflow_template_service {
 
     impl InstantiateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6389,7 +6534,7 @@ pub mod workflow_template_service {
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_workflow_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6414,7 +6559,7 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::InstantiateWorkflowTemplateRequest::name].
@@ -6464,7 +6609,7 @@ pub mod workflow_template_service {
 
     impl InstantiateInlineWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6499,7 +6644,7 @@ pub mod workflow_template_service {
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_inline_workflow_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6524,7 +6669,7 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::InstantiateInlineWorkflowTemplateRequest::parent].
@@ -6566,7 +6711,7 @@ pub mod workflow_template_service {
 
     impl UpdateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6619,7 +6764,7 @@ pub mod workflow_template_service {
 
     impl ListWorkflowTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6696,7 +6841,7 @@ pub mod workflow_template_service {
 
     impl DeleteWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6752,7 +6897,7 @@ pub mod workflow_template_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6819,7 +6964,7 @@ pub mod workflow_template_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6875,7 +7020,7 @@ pub mod workflow_template_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6938,7 +7083,7 @@ pub mod workflow_template_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -7019,7 +7164,7 @@ pub mod workflow_template_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -7067,7 +7212,7 @@ pub mod workflow_template_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -7115,7 +7260,7 @@ pub mod workflow_template_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod contact_center_insights {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
     ///
@@ -49,7 +48,7 @@ pub mod contact_center_insights {
     /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod contact_center_insights {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod contact_center_insights {
 
     impl CreateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -142,7 +141,7 @@ pub mod contact_center_insights {
 
     impl UploadConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -180,7 +179,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Conversation,
                 crate::model::UploadConversationMetadata,
             >;
@@ -208,7 +207,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
@@ -268,7 +267,7 @@ pub mod contact_center_insights {
 
     impl UpdateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -330,7 +329,7 @@ pub mod contact_center_insights {
 
     impl GetConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -383,7 +382,7 @@ pub mod contact_center_insights {
 
     impl ListConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -478,7 +477,7 @@ pub mod contact_center_insights {
 
     impl DeleteConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -534,7 +533,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -569,7 +568,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Analysis,
                 crate::model::CreateAnalysisOperationMetadata,
             >;
@@ -597,7 +596,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
@@ -633,7 +632,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -680,7 +679,7 @@ pub mod contact_center_insights {
 
     impl ListAnalyses {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -760,7 +759,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -809,7 +808,7 @@ pub mod contact_center_insights {
 
     impl BulkAnalyzeConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -849,7 +848,7 @@ pub mod contact_center_insights {
             crate::model::BulkAnalyzeConversationsResponse,
             crate::model::BulkAnalyzeConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkAnalyzeConversationsResponse,
                 crate::model::BulkAnalyzeConversationsMetadata,
             >;
@@ -877,7 +876,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
@@ -931,7 +930,7 @@ pub mod contact_center_insights {
 
     impl BulkDeleteConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -971,7 +970,7 @@ pub mod contact_center_insights {
             crate::model::BulkDeleteConversationsResponse,
             crate::model::BulkDeleteConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteConversationsResponse,
                 crate::model::BulkDeleteConversationsMetadata,
             >;
@@ -999,7 +998,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
@@ -1042,7 +1041,7 @@ pub mod contact_center_insights {
 
     impl IngestConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1082,7 +1081,7 @@ pub mod contact_center_insights {
             crate::model::IngestConversationsResponse,
             crate::model::IngestConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::IngestConversationsResponse,
                 crate::model::IngestConversationsMetadata,
             >;
@@ -1110,7 +1109,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
@@ -1234,7 +1233,7 @@ pub mod contact_center_insights {
 
     impl ExportInsightsData {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1274,7 +1273,7 @@ pub mod contact_center_insights {
             crate::model::ExportInsightsDataResponse,
             crate::model::ExportInsightsDataMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportInsightsDataResponse,
                 crate::model::ExportInsightsDataMetadata,
             >;
@@ -1302,7 +1301,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
@@ -1383,7 +1382,7 @@ pub mod contact_center_insights {
 
     impl CreateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1421,8 +1420,10 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::IssueModel,
+                crate::model::CreateIssueModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1447,7 +1448,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
@@ -1483,7 +1484,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1545,7 +1546,7 @@ pub mod contact_center_insights {
 
     impl GetIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1592,7 +1593,7 @@ pub mod contact_center_insights {
 
     impl ListIssueModels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1639,7 +1640,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1676,7 +1677,8 @@ pub mod contact_center_insights {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteIssueModelMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1701,7 +1703,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
@@ -1726,7 +1728,7 @@ pub mod contact_center_insights {
 
     impl DeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1766,7 +1768,7 @@ pub mod contact_center_insights {
             crate::model::DeployIssueModelResponse,
             crate::model::DeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployIssueModelResponse,
                 crate::model::DeployIssueModelMetadata,
             >;
@@ -1794,7 +1796,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
@@ -1819,7 +1821,7 @@ pub mod contact_center_insights {
 
     impl UndeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1859,7 +1861,7 @@ pub mod contact_center_insights {
             crate::model::UndeployIssueModelResponse,
             crate::model::UndeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployIssueModelResponse,
                 crate::model::UndeployIssueModelMetadata,
             >;
@@ -1887,7 +1889,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
@@ -1912,7 +1914,7 @@ pub mod contact_center_insights {
 
     impl ExportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1952,7 +1954,7 @@ pub mod contact_center_insights {
             crate::model::ExportIssueModelResponse,
             crate::model::ExportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportIssueModelResponse,
                 crate::model::ExportIssueModelMetadata,
             >;
@@ -1980,7 +1982,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
@@ -2036,7 +2038,7 @@ pub mod contact_center_insights {
 
     impl ImportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2076,7 +2078,7 @@ pub mod contact_center_insights {
             crate::model::ImportIssueModelResponse,
             crate::model::ImportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportIssueModelResponse,
                 crate::model::ImportIssueModelMetadata,
             >;
@@ -2104,7 +2106,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
@@ -2164,7 +2166,7 @@ pub mod contact_center_insights {
 
     impl GetIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2211,7 +2213,7 @@ pub mod contact_center_insights {
 
     impl ListIssues {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2258,7 +2260,7 @@ pub mod contact_center_insights {
 
     impl UpdateIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2317,7 +2319,7 @@ pub mod contact_center_insights {
 
     impl DeleteIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2366,7 +2368,7 @@ pub mod contact_center_insights {
 
     impl CalculateIssueModelStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2416,7 +2418,7 @@ pub mod contact_center_insights {
 
     impl CreatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2477,7 +2479,7 @@ pub mod contact_center_insights {
 
     impl GetPhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2527,7 +2529,7 @@ pub mod contact_center_insights {
 
     impl ListPhraseMatchers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2610,7 +2612,7 @@ pub mod contact_center_insights {
 
     impl DeletePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2660,7 +2662,7 @@ pub mod contact_center_insights {
 
     impl UpdatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2722,7 +2724,7 @@ pub mod contact_center_insights {
 
     impl CalculateStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2775,7 +2777,7 @@ pub mod contact_center_insights {
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2822,7 +2824,7 @@ pub mod contact_center_insights {
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2883,7 +2885,7 @@ pub mod contact_center_insights {
 
     impl CreateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2944,7 +2946,7 @@ pub mod contact_center_insights {
 
     impl GetAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2991,7 +2993,7 @@ pub mod contact_center_insights {
 
     impl ListAnalysisRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3068,7 +3070,7 @@ pub mod contact_center_insights {
 
     impl UpdateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3130,7 +3132,7 @@ pub mod contact_center_insights {
 
     impl DeleteAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3180,7 +3182,7 @@ pub mod contact_center_insights {
 
     impl GetEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3232,7 +3234,7 @@ pub mod contact_center_insights {
 
     impl InitializeEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3272,7 +3274,7 @@ pub mod contact_center_insights {
             crate::model::InitializeEncryptionSpecResponse,
             crate::model::InitializeEncryptionSpecMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InitializeEncryptionSpecResponse,
                 crate::model::InitializeEncryptionSpecMetadata,
             >;
@@ -3300,7 +3302,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
@@ -3328,7 +3330,7 @@ pub mod contact_center_insights {
 
     impl CreateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3383,7 +3385,7 @@ pub mod contact_center_insights {
 
     impl GetView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3430,7 +3432,7 @@ pub mod contact_center_insights {
 
     impl ListViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3504,7 +3506,7 @@ pub mod contact_center_insights {
 
     impl UpdateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3560,7 +3562,7 @@ pub mod contact_center_insights {
 
     impl DeleteView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3607,7 +3609,7 @@ pub mod contact_center_insights {
 
     impl QueryMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3642,7 +3644,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::QueryMetricsResponse,
                 crate::model::QueryMetricsMetadata,
             >;
@@ -3670,7 +3672,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
@@ -3700,15 +3702,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3717,6 +3710,15 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.measure_mask = v.into();
             self
         }
     }
@@ -3734,7 +3736,7 @@ pub mod contact_center_insights {
 
     impl CreateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3801,7 +3803,7 @@ pub mod contact_center_insights {
 
     impl GetQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3848,7 +3850,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3912,7 +3914,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3962,7 +3964,7 @@ pub mod contact_center_insights {
 
     impl ListQaQuestions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4036,7 +4038,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4103,7 +4105,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4150,7 +4152,7 @@ pub mod contact_center_insights {
 
     impl UpdateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4214,7 +4216,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4270,7 +4272,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecards {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4349,7 +4351,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4418,7 +4420,7 @@ pub mod contact_center_insights {
 
     impl GetQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4470,7 +4472,7 @@ pub mod contact_center_insights {
 
     impl TuneQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4510,7 +4512,7 @@ pub mod contact_center_insights {
             crate::model::TuneQaScorecardRevisionResponse,
             crate::model::TuneQaScorecardRevisionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TuneQaScorecardRevisionResponse,
                 crate::model::TuneQaScorecardRevisionMetadata,
             >;
@@ -4538,7 +4540,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
@@ -4579,7 +4581,7 @@ pub mod contact_center_insights {
 
     impl DeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4631,7 +4633,7 @@ pub mod contact_center_insights {
 
     impl UndeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4683,7 +4685,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4741,7 +4743,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecardRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4826,7 +4828,7 @@ pub mod contact_center_insights {
 
     impl CreateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4893,7 +4895,7 @@ pub mod contact_center_insights {
 
     impl ListFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4976,7 +4978,7 @@ pub mod contact_center_insights {
 
     impl GetFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5026,7 +5028,7 @@ pub mod contact_center_insights {
 
     impl UpdateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5090,7 +5092,7 @@ pub mod contact_center_insights {
 
     impl DeleteFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5140,7 +5142,7 @@ pub mod contact_center_insights {
 
     impl ListAllFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5225,7 +5227,7 @@ pub mod contact_center_insights {
 
     impl BulkUploadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5265,7 +5267,7 @@ pub mod contact_center_insights {
             crate::model::BulkUploadFeedbackLabelsResponse,
             crate::model::BulkUploadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkUploadFeedbackLabelsResponse,
                 crate::model::BulkUploadFeedbackLabelsMetadata,
             >;
@@ -5293,7 +5295,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
@@ -5357,7 +5359,7 @@ pub mod contact_center_insights {
 
     impl BulkDownloadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5397,7 +5399,7 @@ pub mod contact_center_insights {
             crate::model::BulkDownloadFeedbackLabelsResponse,
             crate::model::BulkDownloadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDownloadFeedbackLabelsResponse,
                 crate::model::BulkDownloadFeedbackLabelsMetadata,
             >;
@@ -5425,7 +5427,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].
@@ -5523,7 +5525,7 @@ pub mod contact_center_insights {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5604,7 +5606,7 @@ pub mod contact_center_insights {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5652,7 +5654,7 @@ pub mod contact_center_insights {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

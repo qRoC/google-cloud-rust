@@ -16,7 +16,6 @@
 
 pub mod cloud_filestore_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudFilestoreManager][super::super::client::CloudFilestoreManager].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_filestore_manager {
     /// Common implementation for [super::super::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod cloud_filestore_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod cloud_filestore_manager {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -161,7 +160,7 @@ pub mod cloud_filestore_manager {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -208,7 +207,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -243,8 +242,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -269,7 +270,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -313,7 +314,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -348,8 +349,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -374,7 +377,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
@@ -409,7 +412,7 @@ pub mod cloud_filestore_manager {
 
     impl RestoreInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -444,8 +447,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -470,7 +475,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
@@ -528,7 +533,7 @@ pub mod cloud_filestore_manager {
 
     impl RevertInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -563,8 +568,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -589,7 +596,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
@@ -622,7 +629,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -656,7 +663,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -681,7 +689,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -712,7 +720,7 @@ pub mod cloud_filestore_manager {
 
     impl ListSnapshots {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -804,7 +812,7 @@ pub mod cloud_filestore_manager {
 
     impl GetSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -851,7 +859,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -886,8 +894,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -912,7 +922,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -956,7 +966,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -990,7 +1000,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1015,7 +1026,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1040,7 +1051,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1075,8 +1086,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1101,7 +1114,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
@@ -1140,7 +1153,7 @@ pub mod cloud_filestore_manager {
 
     impl ListBackups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1226,7 +1239,7 @@ pub mod cloud_filestore_manager {
 
     impl GetBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1273,7 +1286,7 @@ pub mod cloud_filestore_manager {
 
     impl CreateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1308,8 +1321,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1334,7 +1349,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1378,7 +1393,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1412,7 +1427,8 @@ pub mod cloud_filestore_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1437,7 +1453,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1462,7 +1478,7 @@ pub mod cloud_filestore_manager {
 
     impl UpdateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1497,8 +1513,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1523,7 +1541,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -1562,7 +1580,7 @@ pub mod cloud_filestore_manager {
 
     impl PromoteReplica {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1597,8 +1615,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1623,7 +1643,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
@@ -1654,7 +1674,7 @@ pub mod cloud_filestore_manager {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1735,7 +1755,7 @@ pub mod cloud_filestore_manager {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1780,7 +1800,7 @@ pub mod cloud_filestore_manager {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1861,7 +1881,7 @@ pub mod cloud_filestore_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1909,7 +1929,7 @@ pub mod cloud_filestore_manager {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1957,7 +1977,7 @@ pub mod cloud_filestore_manager {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

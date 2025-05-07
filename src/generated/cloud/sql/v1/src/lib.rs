@@ -58,7 +58,6 @@ pub mod builder;
 pub(crate) mod tracing;
 
 #[doc(hidden)]
-#[allow(deprecated)]
 pub(crate) mod transport;
 
 /// The default host used by the service.
@@ -72,10 +71,9 @@ pub(crate) mod info {
             let ac = gaxi::api_header::XGoogApiClient{
                 name:          NAME,
                 version:       VERSION,
-                library_type:  gaxi::api_header::GAPIC, 
+                library_type:  gaxi::api_header::GAPIC,
             };
             ac.header_value()
         };
     }
 }
-

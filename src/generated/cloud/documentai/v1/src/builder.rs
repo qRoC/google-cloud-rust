@@ -16,7 +16,6 @@
 
 pub mod document_processor_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DocumentProcessorService][super::super::client::DocumentProcessorService].
     ///
@@ -49,7 +48,7 @@ pub mod document_processor_service {
     /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod document_processor_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod document_processor_service {
 
     impl ProcessDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -132,12 +131,6 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
-        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.imageless_mode = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::ProcessRequest::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -146,6 +139,12 @@ pub mod document_processor_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.imageless_mode = v.into();
             self
         }
 
@@ -220,7 +219,7 @@ pub mod document_processor_service {
 
     impl BatchProcessDocuments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -255,7 +254,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchProcessResponse,
                 crate::model::BatchProcessMetadata,
             >;
@@ -283,7 +282,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
@@ -356,7 +355,7 @@ pub mod document_processor_service {
 
     impl FetchProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -406,7 +405,7 @@ pub mod document_processor_service {
 
     impl ListProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -483,7 +482,7 @@ pub mod document_processor_service {
 
     impl GetProcessorType {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -533,7 +532,7 @@ pub mod document_processor_service {
 
     impl ListProcessors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -607,7 +606,7 @@ pub mod document_processor_service {
 
     impl GetProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -654,7 +653,7 @@ pub mod document_processor_service {
 
     impl TrainProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -694,7 +693,7 @@ pub mod document_processor_service {
             crate::model::TrainProcessorVersionResponse,
             crate::model::TrainProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TrainProcessorVersionResponse,
                 crate::model::TrainProcessorVersionMetadata,
             >;
@@ -722,7 +721,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
@@ -829,7 +828,7 @@ pub mod document_processor_service {
 
     impl GetProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -879,7 +878,7 @@ pub mod document_processor_service {
 
     impl ListProcessorVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -956,7 +955,7 @@ pub mod document_processor_service {
 
     impl DeleteProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -994,7 +993,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorVersionMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1019,7 +1018,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
@@ -1044,7 +1043,7 @@ pub mod document_processor_service {
 
     impl DeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1084,7 +1083,7 @@ pub mod document_processor_service {
             crate::model::DeployProcessorVersionResponse,
             crate::model::DeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployProcessorVersionResponse,
                 crate::model::DeployProcessorVersionMetadata,
             >;
@@ -1112,7 +1111,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
@@ -1139,7 +1138,7 @@ pub mod document_processor_service {
 
     impl UndeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1179,7 +1178,7 @@ pub mod document_processor_service {
             crate::model::UndeployProcessorVersionResponse,
             crate::model::UndeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployProcessorVersionResponse,
                 crate::model::UndeployProcessorVersionMetadata,
             >;
@@ -1207,7 +1206,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
@@ -1232,7 +1231,7 @@ pub mod document_processor_service {
 
     impl CreateProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1290,7 +1289,7 @@ pub mod document_processor_service {
 
     impl DeleteProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1322,7 +1321,8 @@ pub mod document_processor_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1347,7 +1347,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
@@ -1372,7 +1372,7 @@ pub mod document_processor_service {
 
     impl EnableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1407,7 +1407,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableProcessorResponse,
                 crate::model::EnableProcessorMetadata,
             >;
@@ -1435,7 +1435,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
@@ -1460,7 +1460,7 @@ pub mod document_processor_service {
 
     impl DisableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1500,7 +1500,7 @@ pub mod document_processor_service {
             crate::model::DisableProcessorResponse,
             crate::model::DisableProcessorMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableProcessorResponse,
                 crate::model::DisableProcessorMetadata,
             >;
@@ -1528,7 +1528,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
@@ -1555,7 +1555,7 @@ pub mod document_processor_service {
 
     impl SetDefaultProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1595,7 +1595,7 @@ pub mod document_processor_service {
             crate::model::SetDefaultProcessorVersionResponse,
             crate::model::SetDefaultProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SetDefaultProcessorVersionResponse,
                 crate::model::SetDefaultProcessorVersionMetadata,
             >;
@@ -1623,7 +1623,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
@@ -1656,7 +1656,7 @@ pub mod document_processor_service {
 
     impl ReviewDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1693,7 +1693,7 @@ pub mod document_processor_service {
             crate::model::ReviewDocumentResponse,
             crate::model::ReviewDocumentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReviewDocumentResponse,
                 crate::model::ReviewDocumentOperationMetadata,
             >;
@@ -1721,7 +1721,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
@@ -1799,7 +1799,7 @@ pub mod document_processor_service {
 
     impl EvaluateProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1839,7 +1839,7 @@ pub mod document_processor_service {
             crate::model::EvaluateProcessorVersionResponse,
             crate::model::EvaluateProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EvaluateProcessorVersionResponse,
                 crate::model::EvaluateProcessorVersionMetadata,
             >;
@@ -1867,7 +1867,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].
@@ -1903,7 +1903,7 @@ pub mod document_processor_service {
 
     impl GetEvaluation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1950,7 +1950,7 @@ pub mod document_processor_service {
 
     impl ListEvaluations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2024,7 +2024,7 @@ pub mod document_processor_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2105,7 +2105,7 @@ pub mod document_processor_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2150,7 +2150,7 @@ pub mod document_processor_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2231,7 +2231,7 @@ pub mod document_processor_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2279,7 +2279,7 @@ pub mod document_processor_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

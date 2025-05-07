@@ -16,7 +16,6 @@
 
 pub mod secure_source_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [SecureSourceManager][super::super::client::SecureSourceManager].
     ///
@@ -49,7 +48,7 @@ pub mod secure_source_manager {
     /// Common implementation for [super::super::client::SecureSourceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod secure_source_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod secure_source_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod secure_source_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod secure_source_manager {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,7 +242,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -260,7 +267,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -309,7 +316,9 @@ pub mod secure_source_manager {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -340,7 +349,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -365,7 +374,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -395,7 +404,9 @@ pub mod secure_source_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -482,7 +493,9 @@ pub mod secure_source_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -527,7 +540,9 @@ pub mod secure_source_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -564,7 +579,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -589,7 +604,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -632,7 +647,9 @@ pub mod secure_source_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -666,7 +683,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -691,7 +708,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -721,7 +738,9 @@ pub mod secure_source_manager {
     pub struct GetIamPolicyRepo(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicyRepo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -775,7 +794,9 @@ pub mod secure_source_manager {
     pub struct SetIamPolicyRepo(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicyRepo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -840,7 +861,9 @@ pub mod secure_source_manager {
     pub struct TestIamPermissionsRepo(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissionsRepo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -901,7 +924,9 @@ pub mod secure_source_manager {
     pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
     impl CreateBranchRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -938,7 +963,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -963,7 +988,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBranchRuleRequest::parent].
@@ -1006,7 +1031,9 @@ pub mod secure_source_manager {
     pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
 
     impl ListBranchRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1078,7 +1105,9 @@ pub mod secure_source_manager {
     pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
 
     impl GetBranchRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1123,7 +1152,9 @@ pub mod secure_source_manager {
     pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
     impl UpdateBranchRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1160,7 +1191,7 @@ pub mod secure_source_manager {
             self,
         ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1185,7 +1216,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [branch_rule][crate::model::UpdateBranchRuleRequest::branch_rule].
@@ -1229,7 +1260,9 @@ pub mod secure_source_manager {
     pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
     impl DeleteBranchRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1263,7 +1296,7 @@ pub mod secure_source_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_branch_rule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1288,7 +1321,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBranchRuleRequest::name].
@@ -1318,7 +1351,9 @@ pub mod secure_source_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1397,7 +1432,9 @@ pub mod secure_source_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1440,7 +1477,9 @@ pub mod secure_source_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1505,7 +1544,9 @@ pub mod secure_source_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1559,7 +1600,9 @@ pub mod secure_source_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1663,9 @@ pub mod secure_source_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1699,7 +1744,9 @@ pub mod secure_source_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1745,7 +1792,9 @@ pub mod secure_source_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1791,7 +1840,9 @@ pub mod secure_source_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

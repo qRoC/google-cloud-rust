@@ -16,7 +16,6 @@
 
 pub mod video_stitcher_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
     ///
@@ -49,7 +48,7 @@ pub mod video_stitcher_service {
     /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod video_stitcher_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod video_stitcher_service {
 
     impl CreateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -109,7 +108,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +134,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
@@ -178,7 +178,7 @@ pub mod video_stitcher_service {
 
     impl ListCdnKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -264,7 +264,7 @@ pub mod video_stitcher_service {
 
     impl GetCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -311,7 +311,7 @@ pub mod video_stitcher_service {
 
     impl DeleteCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -343,7 +343,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,7 +368,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
@@ -393,7 +393,7 @@ pub mod video_stitcher_service {
 
     impl UpdateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -427,7 +427,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +453,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
@@ -491,7 +492,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -552,7 +553,7 @@ pub mod video_stitcher_service {
 
     impl GetVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -599,7 +600,7 @@ pub mod video_stitcher_service {
 
     impl ListVodStitchDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -676,7 +677,7 @@ pub mod video_stitcher_service {
 
     impl GetVodStitchDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -726,7 +727,7 @@ pub mod video_stitcher_service {
 
     impl ListVodAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -803,7 +804,7 @@ pub mod video_stitcher_service {
 
     impl GetVodAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -853,7 +854,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -930,7 +931,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -980,7 +981,7 @@ pub mod video_stitcher_service {
 
     impl CreateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1014,7 +1015,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1039,7 +1041,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
@@ -1089,7 +1091,7 @@ pub mod video_stitcher_service {
 
     impl ListSlates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1175,7 +1177,7 @@ pub mod video_stitcher_service {
 
     impl GetSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1222,7 +1224,7 @@ pub mod video_stitcher_service {
 
     impl UpdateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1256,7 +1258,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1281,7 +1284,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
@@ -1320,7 +1323,7 @@ pub mod video_stitcher_service {
 
     impl DeleteSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1352,7 +1355,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1377,7 +1380,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
@@ -1402,7 +1405,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1463,7 +1466,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1510,7 +1513,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1548,7 +1551,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1573,7 +1576,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
@@ -1623,7 +1626,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1709,7 +1712,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1756,7 +1759,7 @@ pub mod video_stitcher_service {
 
     impl DeleteLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1791,7 +1794,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1816,7 +1819,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
@@ -1841,7 +1844,7 @@ pub mod video_stitcher_service {
 
     impl UpdateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1879,7 +1882,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1904,7 +1907,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
@@ -1943,7 +1946,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1978,7 +1981,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2003,7 +2006,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
@@ -2053,7 +2056,7 @@ pub mod video_stitcher_service {
 
     impl ListVodConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2139,7 +2142,7 @@ pub mod video_stitcher_service {
 
     impl GetVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2186,7 +2189,7 @@ pub mod video_stitcher_service {
 
     impl DeleteVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2218,7 +2221,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2243,7 +2246,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
@@ -2268,7 +2271,7 @@ pub mod video_stitcher_service {
 
     impl UpdateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2303,7 +2306,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2328,7 +2331,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
@@ -2367,7 +2370,7 @@ pub mod video_stitcher_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2448,7 +2451,7 @@ pub mod video_stitcher_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2496,7 +2499,7 @@ pub mod video_stitcher_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2544,7 +2547,7 @@ pub mod video_stitcher_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

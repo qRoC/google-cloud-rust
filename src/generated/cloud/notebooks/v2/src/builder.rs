@@ -16,7 +16,6 @@
 
 pub mod notebook_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NotebookService][super::super::client::NotebookService].
     ///
@@ -49,7 +48,7 @@ pub mod notebook_service {
     /// Common implementation for [super::super::client::NotebookService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NotebookService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod notebook_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod notebook_service {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod notebook_service {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod notebook_service {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,7 +242,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -260,7 +267,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -309,7 +316,9 @@ pub mod notebook_service {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,7 +352,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,7 +377,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -412,7 +421,9 @@ pub mod notebook_service {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -443,7 +454,7 @@ pub mod notebook_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -468,7 +479,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -498,7 +509,9 @@ pub mod notebook_service {
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -532,7 +545,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -557,7 +570,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -581,7 +594,9 @@ pub mod notebook_service {
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -615,7 +630,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -640,7 +655,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -664,7 +679,9 @@ pub mod notebook_service {
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -698,7 +715,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -723,7 +740,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -749,7 +766,9 @@ pub mod notebook_service {
     );
 
     impl CheckInstanceUpgradability {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -797,7 +816,9 @@ pub mod notebook_service {
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
     impl UpgradeInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -831,7 +852,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -856,7 +877,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpgradeInstanceRequest::name].
@@ -880,7 +901,9 @@ pub mod notebook_service {
     pub struct RollbackInstance(RequestBuilder<crate::model::RollbackInstanceRequest>);
 
     impl RollbackInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -917,7 +940,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -942,7 +965,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RollbackInstanceRequest::name].
@@ -982,7 +1005,9 @@ pub mod notebook_service {
     pub struct DiagnoseInstance(RequestBuilder<crate::model::DiagnoseInstanceRequest>);
 
     impl DiagnoseInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1019,7 +1044,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1044,7 +1069,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInstanceRequest::name].
@@ -1087,7 +1112,9 @@ pub mod notebook_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1166,7 +1193,9 @@ pub mod notebook_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1209,7 +1238,9 @@ pub mod notebook_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,7 +1305,9 @@ pub mod notebook_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,7 +1361,9 @@ pub mod notebook_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1389,7 +1424,9 @@ pub mod notebook_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1468,7 +1505,9 @@ pub mod notebook_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1514,7 +1553,9 @@ pub mod notebook_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1560,7 +1601,9 @@ pub mod notebook_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

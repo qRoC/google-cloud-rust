@@ -16,7 +16,6 @@
 
 pub mod service_usage {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceUsage][super::super::client::ServiceUsage].
     ///
@@ -49,7 +48,7 @@ pub mod service_usage {
     /// Common implementation for [super::super::client::ServiceUsage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod service_usage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod service_usage {
     pub struct EnableService(RequestBuilder<crate::model::EnableServiceRequest>);
 
     impl EnableService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -106,7 +109,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::EnableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -134,7 +137,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceRequest::name].
@@ -156,7 +159,9 @@ pub mod service_usage {
     pub struct DisableService(RequestBuilder<crate::model::DisableServiceRequest>);
 
     impl DisableService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,7 +195,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::DisableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -218,7 +223,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceRequest::name].
@@ -257,7 +262,9 @@ pub mod service_usage {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -300,7 +307,9 @@ pub mod service_usage {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -376,7 +385,9 @@ pub mod service_usage {
     pub struct BatchEnableServices(RequestBuilder<crate::model::BatchEnableServicesRequest>);
 
     impl BatchEnableServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -413,7 +424,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::BatchEnableServicesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchEnableServicesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -441,7 +452,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].
@@ -474,7 +485,9 @@ pub mod service_usage {
     pub struct BatchGetServices(RequestBuilder<crate::model::BatchGetServicesRequest>);
 
     impl BatchGetServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -531,7 +544,9 @@ pub mod service_usage {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -610,7 +625,9 @@ pub mod service_usage {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

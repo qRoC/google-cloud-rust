@@ -16,7 +16,6 @@
 
 pub mod database_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatabaseAdmin][super::super::client::DatabaseAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod database_admin {
     /// Common implementation for [super::super::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod database_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod database_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +147,9 @@ pub mod database_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,8 +183,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -204,7 +211,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -220,6 +227,17 @@ pub mod database_admin {
         /// This is a **required** field for requests.
         pub fn set_create_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.create_statement = v.into();
+            self
+        }
+
+        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -248,17 +266,6 @@ pub mod database_admin {
             self.0.request.proto_descriptors = v.into();
             self
         }
-
-        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -273,7 +280,9 @@ pub mod database_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +327,9 @@ pub mod database_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -352,8 +363,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -378,7 +391,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -416,7 +429,9 @@ pub mod database_admin {
     pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
     impl UpdateDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,7 +467,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -477,7 +493,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
@@ -485,18 +501,6 @@ pub mod database_admin {
         /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
-            self
-        }
-
-        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
-        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.operation_id = v.into();
-            self
-        }
-
-        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.proto_descriptors = v.into();
             self
         }
 
@@ -510,6 +514,18 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
+        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation_id = v.into();
+            self
+        }
+
+        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
+        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.proto_descriptors = v.into();
             self
         }
     }
@@ -526,7 +542,9 @@ pub mod database_admin {
     pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
 
     impl DropDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -571,7 +589,9 @@ pub mod database_admin {
     pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
     impl GetDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -616,7 +636,9 @@ pub mod database_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -681,7 +703,9 @@ pub mod database_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -735,7 +759,9 @@ pub mod database_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -796,7 +822,9 @@ pub mod database_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -830,7 +858,7 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -855,7 +883,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -909,7 +937,9 @@ pub mod database_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -942,7 +972,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -967,7 +998,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -1029,7 +1060,9 @@ pub mod database_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1074,7 +1107,9 @@ pub mod database_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1133,7 +1168,9 @@ pub mod database_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1178,7 +1215,9 @@ pub mod database_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1256,7 +1295,9 @@ pub mod database_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,8 +1331,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1316,7 +1359,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
@@ -1381,7 +1424,9 @@ pub mod database_admin {
     pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
 
     impl ListDatabaseOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1464,7 +1509,9 @@ pub mod database_admin {
     pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
 
     impl ListBackupOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1545,7 +1592,9 @@ pub mod database_admin {
     pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
     impl ListDatabaseRoles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1669,9 @@ pub mod database_admin {
     pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
 
     impl AddSplitPoints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1652,12 +1703,6 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.initiator = v.into();
-            self
-        }
-
         /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
         ///
         /// This is a **required** field for requests.
@@ -1668,6 +1713,12 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.initiator = v.into();
             self
         }
     }
@@ -1684,7 +1735,9 @@ pub mod database_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1751,7 +1804,9 @@ pub mod database_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1799,7 +1854,9 @@ pub mod database_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1861,7 +1918,9 @@ pub mod database_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1909,7 +1968,9 @@ pub mod database_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1984,7 +2045,9 @@ pub mod database_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2063,7 +2126,9 @@ pub mod database_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2109,7 +2174,9 @@ pub mod database_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2155,7 +2222,9 @@ pub mod database_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

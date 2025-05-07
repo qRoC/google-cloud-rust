@@ -16,7 +16,6 @@
 
 pub mod datastream {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Datastream][super::super::client::Datastream].
     ///
@@ -49,7 +48,7 @@ pub mod datastream {
     /// Common implementation for [super::super::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Datastream>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod datastream {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod datastream {
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
     impl ListConnectionProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -161,7 +164,9 @@ pub mod datastream {
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
     impl GetConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -211,7 +216,9 @@ pub mod datastream {
     );
 
     impl CreateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -248,8 +255,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -274,7 +283,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
@@ -339,7 +348,9 @@ pub mod datastream {
     );
 
     impl UpdateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -376,8 +387,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -402,7 +415,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
@@ -460,7 +473,9 @@ pub mod datastream {
     );
 
     impl DeleteConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -494,7 +509,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -519,7 +534,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
@@ -551,7 +566,9 @@ pub mod datastream {
     );
 
     impl DiscoverConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -747,7 +764,9 @@ pub mod datastream {
     pub struct ListStreams(RequestBuilder<crate::model::ListStreamsRequest>);
 
     impl ListStreams {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -831,7 +850,9 @@ pub mod datastream {
     pub struct GetStream(RequestBuilder<crate::model::GetStreamRequest>);
 
     impl GetStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -876,7 +897,9 @@ pub mod datastream {
     pub struct CreateStream(RequestBuilder<crate::model::CreateStreamRequest>);
 
     impl CreateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,7 +932,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -934,7 +958,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateStreamRequest::parent].
@@ -995,7 +1019,9 @@ pub mod datastream {
     pub struct UpdateStream(RequestBuilder<crate::model::UpdateStreamRequest>);
 
     impl UpdateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1028,7 +1054,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1053,7 +1080,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
@@ -1107,7 +1134,9 @@ pub mod datastream {
     pub struct DeleteStream(RequestBuilder<crate::model::DeleteStreamRequest>);
 
     impl DeleteStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1138,7 +1167,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_stream`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1163,7 +1192,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteStreamRequest::name].
@@ -1193,7 +1222,9 @@ pub mod datastream {
     pub struct RunStream(RequestBuilder<crate::model::RunStreamRequest>);
 
     impl RunStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1226,7 +1257,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1251,7 +1283,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunStreamRequest::name].
@@ -1290,7 +1322,9 @@ pub mod datastream {
     pub struct GetStreamObject(RequestBuilder<crate::model::GetStreamObjectRequest>);
 
     impl GetStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1335,7 +1369,9 @@ pub mod datastream {
     pub struct LookupStreamObject(RequestBuilder<crate::model::LookupStreamObjectRequest>);
 
     impl LookupStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1396,7 +1432,9 @@ pub mod datastream {
     pub struct ListStreamObjects(RequestBuilder<crate::model::ListStreamObjectsRequest>);
 
     impl ListStreamObjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1471,7 +1509,9 @@ pub mod datastream {
     pub struct StartBackfillJob(RequestBuilder<crate::model::StartBackfillJobRequest>);
 
     impl StartBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1519,7 +1559,9 @@ pub mod datastream {
     pub struct StopBackfillJob(RequestBuilder<crate::model::StopBackfillJobRequest>);
 
     impl StopBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1564,7 +1606,9 @@ pub mod datastream {
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
     impl FetchStaticIps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1623,7 +1667,9 @@ pub mod datastream {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1660,8 +1706,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1686,7 +1734,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -1743,7 +1791,9 @@ pub mod datastream {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1791,7 +1841,9 @@ pub mod datastream {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1882,7 +1934,9 @@ pub mod datastream {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1916,7 +1970,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1941,7 +1995,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
@@ -1977,7 +2031,9 @@ pub mod datastream {
     pub struct CreateRoute(RequestBuilder<crate::model::CreateRouteRequest>);
 
     impl CreateRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2010,7 +2066,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Route, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Route, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Route, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2035,7 +2092,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRouteRequest::parent].
@@ -2084,7 +2141,9 @@ pub mod datastream {
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
     impl GetRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2129,7 +2188,9 @@ pub mod datastream {
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
     impl ListRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2213,7 +2274,9 @@ pub mod datastream {
     pub struct DeleteRoute(RequestBuilder<crate::model::DeleteRouteRequest>);
 
     impl DeleteRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2244,7 +2307,7 @@ pub mod datastream {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_route`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2269,7 +2332,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRouteRequest::name].
@@ -2299,7 +2362,9 @@ pub mod datastream {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2378,7 +2443,9 @@ pub mod datastream {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2421,7 +2488,9 @@ pub mod datastream {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2500,7 +2569,9 @@ pub mod datastream {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2546,7 +2617,9 @@ pub mod datastream {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2592,7 +2665,9 @@ pub mod datastream {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

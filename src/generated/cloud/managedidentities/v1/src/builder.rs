@@ -16,7 +16,6 @@
 
 pub mod managed_identities_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
     ///
@@ -49,7 +48,7 @@ pub mod managed_identities_service {
     /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod managed_identities_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod managed_identities_service {
 
     impl CreateMicrosoftAdDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -112,7 +111,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `create_microsoft_ad_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -137,7 +137,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
@@ -181,7 +181,7 @@ pub mod managed_identities_service {
 
     impl ResetAdminPassword {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -231,7 +231,7 @@ pub mod managed_identities_service {
 
     impl ListDomains {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -317,7 +317,7 @@ pub mod managed_identities_service {
 
     impl GetDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -364,7 +364,7 @@ pub mod managed_identities_service {
 
     impl UpdateDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -396,7 +396,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `update_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -421,7 +422,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
@@ -460,7 +461,7 @@ pub mod managed_identities_service {
 
     impl DeleteDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -492,7 +493,7 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_domain`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OpMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OpMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -517,7 +518,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDomainRequest::name].
@@ -542,7 +543,7 @@ pub mod managed_identities_service {
 
     impl AttachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -574,7 +575,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `attach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -599,7 +601,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AttachTrustRequest::name].
@@ -635,7 +637,7 @@ pub mod managed_identities_service {
 
     impl ReconfigureTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -670,7 +672,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `reconfigure_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -695,7 +698,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
@@ -741,7 +744,7 @@ pub mod managed_identities_service {
 
     impl DetachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -773,7 +776,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `detach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -798,7 +802,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DetachTrustRequest::name].
@@ -834,7 +838,7 @@ pub mod managed_identities_service {
 
     impl ValidateTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -866,7 +870,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `validate_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -891,7 +896,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ValidateTrustRequest::name].
@@ -927,7 +932,7 @@ pub mod managed_identities_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1008,7 +1013,7 @@ pub mod managed_identities_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1056,7 +1061,7 @@ pub mod managed_identities_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1104,7 +1109,7 @@ pub mod managed_identities_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

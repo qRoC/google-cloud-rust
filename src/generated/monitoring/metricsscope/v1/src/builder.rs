@@ -16,7 +16,6 @@
 
 pub mod metrics_scopes {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [MetricsScopes][super::super::client::MetricsScopes].
     ///
@@ -49,7 +48,7 @@ pub mod metrics_scopes {
     /// Common implementation for [super::super::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod metrics_scopes {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod metrics_scopes {
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -119,7 +122,9 @@ pub mod metrics_scopes {
     );
 
     impl ListMetricsScopesByMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -172,7 +177,9 @@ pub mod metrics_scopes {
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
     impl CreateMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,8 +216,10 @@ pub mod metrics_scopes {
             self,
         ) -> impl lro::Poller<crate::model::MonitoredProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MonitoredProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MonitoredProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -235,7 +244,7 @@ pub mod metrics_scopes {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
@@ -272,7 +281,9 @@ pub mod metrics_scopes {
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
     impl DeleteMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +317,7 @@ pub mod metrics_scopes {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_monitored_project`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -331,7 +342,7 @@ pub mod metrics_scopes {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
@@ -355,7 +366,9 @@ pub mod metrics_scopes {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

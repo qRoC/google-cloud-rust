@@ -16,7 +16,6 @@
 
 pub mod edge_container {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EdgeContainer][super::super::client::EdgeContainer].
     ///
@@ -49,7 +48,7 @@ pub mod edge_container {
     /// Common implementation for [super::super::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod edge_container {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod edge_container {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod edge_container {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod edge_container {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -234,7 +241,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +267,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -308,7 +316,9 @@ pub mod edge_container {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,7 +351,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,7 +377,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -406,7 +417,9 @@ pub mod edge_container {
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -439,7 +452,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -464,7 +478,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
@@ -511,7 +525,9 @@ pub mod edge_container {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,7 +558,7 @@ pub mod edge_container {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -567,7 +583,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -597,7 +613,9 @@ pub mod edge_container {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -647,7 +665,9 @@ pub mod edge_container {
     );
 
     impl GenerateOfflineCredential {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -695,7 +715,9 @@ pub mod edge_container {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -779,7 +801,9 @@ pub mod edge_container {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,7 +848,9 @@ pub mod edge_container {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -858,7 +884,7 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -883,7 +909,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
@@ -932,7 +958,9 @@ pub mod edge_container {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -966,7 +994,7 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -991,7 +1019,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
@@ -1031,7 +1059,9 @@ pub mod edge_container {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1062,7 +1092,7 @@ pub mod edge_container {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1087,7 +1117,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
@@ -1117,7 +1147,9 @@ pub mod edge_container {
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1201,7 +1233,9 @@ pub mod edge_container {
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1246,7 +1280,9 @@ pub mod edge_container {
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
     impl ListVpnConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1333,7 +1369,9 @@ pub mod edge_container {
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1381,7 +1419,9 @@ pub mod edge_container {
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
     impl CreateVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1418,8 +1458,10 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpnConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpnConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1444,7 +1486,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
@@ -1493,7 +1535,9 @@ pub mod edge_container {
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
     impl DeleteVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1527,7 +1571,7 @@ pub mod edge_container {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpn_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1552,7 +1596,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
@@ -1582,7 +1626,9 @@ pub mod edge_container {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1627,7 +1673,9 @@ pub mod edge_container {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1706,7 +1754,9 @@ pub mod edge_container {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1749,7 +1799,9 @@ pub mod edge_container {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1828,7 +1880,9 @@ pub mod edge_container {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1874,7 +1928,9 @@ pub mod edge_container {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1920,7 +1976,9 @@ pub mod edge_container {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

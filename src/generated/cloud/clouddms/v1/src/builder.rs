@@ -16,7 +16,6 @@
 
 pub mod data_migration_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataMigrationService][super::super::client::DataMigrationService].
     ///
@@ -49,7 +48,7 @@ pub mod data_migration_service {
     /// Common implementation for [super::super::client::DataMigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod data_migration_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod data_migration_service {
 
     impl ListMigrationJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -164,7 +163,7 @@ pub mod data_migration_service {
 
     impl GetMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,7 +210,7 @@ pub mod data_migration_service {
 
     impl CreateMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -248,8 +247,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -274,7 +275,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMigrationJobRequest::parent].
@@ -324,7 +325,7 @@ pub mod data_migration_service {
 
     impl UpdateMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -361,8 +362,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -387,7 +390,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigrationJobRequest::update_mask].
@@ -432,7 +435,7 @@ pub mod data_migration_service {
 
     impl DeleteMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -467,7 +470,7 @@ pub mod data_migration_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migration_job`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -492,7 +495,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMigrationJobRequest::name].
@@ -529,7 +532,7 @@ pub mod data_migration_service {
 
     impl StartMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -566,8 +569,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -592,7 +597,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartMigrationJobRequest::name].
@@ -621,7 +626,7 @@ pub mod data_migration_service {
 
     impl StopMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -658,8 +663,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -684,7 +691,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopMigrationJobRequest::name].
@@ -707,7 +714,7 @@ pub mod data_migration_service {
 
     impl ResumeMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -744,8 +751,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -770,7 +779,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResumeMigrationJobRequest::name].
@@ -793,7 +802,7 @@ pub mod data_migration_service {
 
     impl PromoteMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -830,8 +839,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -856,7 +867,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::PromoteMigrationJobRequest::name].
@@ -879,7 +890,7 @@ pub mod data_migration_service {
 
     impl VerifyMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -916,8 +927,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -942,7 +955,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::VerifyMigrationJobRequest::name].
@@ -983,7 +996,7 @@ pub mod data_migration_service {
 
     impl RestartMigrationJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1020,8 +1033,10 @@ pub mod data_migration_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigrationJob, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigrationJob, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigrationJob,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1046,7 +1061,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestartMigrationJobRequest::name].
@@ -1075,7 +1090,7 @@ pub mod data_migration_service {
 
     impl GenerateSshScript {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1181,7 +1196,7 @@ pub mod data_migration_service {
 
     impl GenerateTcpProxyScript {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1259,7 +1274,7 @@ pub mod data_migration_service {
 
     impl ListConnectionProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1350,7 +1365,7 @@ pub mod data_migration_service {
 
     impl GetConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1402,7 +1417,7 @@ pub mod data_migration_service {
 
     impl CreateConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1440,8 +1455,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1466,7 +1483,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
@@ -1532,7 +1549,7 @@ pub mod data_migration_service {
 
     impl UpdateConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1570,8 +1587,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1596,7 +1615,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
@@ -1657,7 +1676,7 @@ pub mod data_migration_service {
 
     impl DeleteConnectionProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1692,7 +1711,7 @@ pub mod data_migration_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1717,7 +1736,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
@@ -1756,7 +1775,7 @@ pub mod data_migration_service {
 
     impl CreatePrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1794,8 +1813,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1820,7 +1841,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -1878,7 +1899,7 @@ pub mod data_migration_service {
 
     impl GetPrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1928,7 +1949,7 @@ pub mod data_migration_service {
 
     impl ListPrivateConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2021,7 +2042,7 @@ pub mod data_migration_service {
 
     impl DeletePrivateConnection {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2056,7 +2077,7 @@ pub mod data_migration_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2081,7 +2102,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
@@ -2112,7 +2133,7 @@ pub mod data_migration_service {
 
     impl GetConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2164,7 +2185,7 @@ pub mod data_migration_service {
 
     impl ListConversionWorkspaces {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2251,7 +2272,7 @@ pub mod data_migration_service {
 
     impl CreateConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2289,8 +2310,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2315,7 +2338,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConversionWorkspaceRequest::parent].
@@ -2369,7 +2392,7 @@ pub mod data_migration_service {
 
     impl UpdateConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2407,8 +2430,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2433,7 +2458,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConversionWorkspaceRequest::update_mask].
@@ -2482,7 +2507,7 @@ pub mod data_migration_service {
 
     impl DeleteConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2517,7 +2542,7 @@ pub mod data_migration_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_conversion_workspace`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2542,7 +2567,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConversionWorkspaceRequest::name].
@@ -2579,7 +2604,7 @@ pub mod data_migration_service {
 
     impl CreateMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2654,7 +2679,7 @@ pub mod data_migration_service {
 
     impl DeleteMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2710,7 +2735,7 @@ pub mod data_migration_service {
 
     impl ListMappingRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2787,7 +2812,7 @@ pub mod data_migration_service {
 
     impl GetMappingRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2836,7 +2861,7 @@ pub mod data_migration_service {
 
     impl SeedConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2874,8 +2899,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2900,7 +2927,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SeedConversionWorkspaceRequest::name].
@@ -2969,7 +2996,7 @@ pub mod data_migration_service {
 
     impl ImportMappingRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3007,8 +3034,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3033,7 +3062,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportMappingRulesRequest::parent].
@@ -3055,14 +3084,6 @@ pub mod data_migration_service {
             self
         }
 
-        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.auto_commit = v.into();
-            self
-        }
-
         /// Sets the value of [rules_files][crate::model::ImportMappingRulesRequest::rules_files].
         ///
         /// This is a **required** field for requests.
@@ -3073,6 +3094,14 @@ pub mod data_migration_service {
         {
             use std::iter::Iterator;
             self.0.request.rules_files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_auto_commit<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.auto_commit = v.into();
             self
         }
     }
@@ -3092,7 +3121,7 @@ pub mod data_migration_service {
 
     impl ConvertConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3130,8 +3159,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3156,7 +3187,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ConvertConversionWorkspaceRequest::name].
@@ -3199,7 +3230,7 @@ pub mod data_migration_service {
 
     impl CommitConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3237,8 +3268,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3263,7 +3296,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CommitConversionWorkspaceRequest::name].
@@ -3296,7 +3329,7 @@ pub mod data_migration_service {
 
     impl RollbackConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3334,8 +3367,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3360,7 +3395,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RollbackConversionWorkspaceRequest::name].
@@ -3387,7 +3422,7 @@ pub mod data_migration_service {
 
     impl ApplyConversionWorkspace {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3425,8 +3460,10 @@ pub mod data_migration_service {
             self,
         ) -> impl lro::Poller<crate::model::ConversionWorkspace, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConversionWorkspace, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConversionWorkspace,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3451,7 +3488,7 @@ pub mod data_migration_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ApplyConversionWorkspaceRequest::name].
@@ -3523,7 +3560,7 @@ pub mod data_migration_service {
 
     impl DescribeDatabaseEntities {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3637,7 +3674,7 @@ pub mod data_migration_service {
 
     impl SearchBackgroundJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3710,7 +3747,7 @@ pub mod data_migration_service {
 
     impl DescribeConversionWorkspaceRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3768,7 +3805,7 @@ pub mod data_migration_service {
 
     impl FetchStaticIps {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3827,7 +3864,7 @@ pub mod data_migration_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3908,7 +3945,7 @@ pub mod data_migration_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3953,7 +3990,7 @@ pub mod data_migration_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4020,7 +4057,7 @@ pub mod data_migration_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4076,7 +4113,7 @@ pub mod data_migration_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4139,7 +4176,7 @@ pub mod data_migration_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4220,7 +4257,7 @@ pub mod data_migration_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4268,7 +4305,7 @@ pub mod data_migration_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4316,7 +4353,7 @@ pub mod data_migration_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataMigrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

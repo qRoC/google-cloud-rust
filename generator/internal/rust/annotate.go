@@ -87,6 +87,10 @@ type serviceAnnotations struct {
 	SkipBuilderDocs bool
 }
 
+func (a *serviceAnnotations) FeatureName() string {
+	return strcase.ToKebab(a.ModuleName)
+}
+
 func (a *messageAnnotation) MultiFeatureGates() bool {
 	return len(a.FeatureGates) > 1
 }
@@ -130,12 +134,6 @@ type messageAnnotation struct {
 	HasNestedTypes    bool
 	// All the fields except OneOfs.
 	BasicFields []*api.Field
-	// The subset of `BasicFields` that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of `BasicFields` that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of `BasicFields` that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
@@ -168,6 +166,12 @@ type pathInfoAnnotation struct {
 	PathArgs      []pathArg
 	HasPathArgs   bool
 	HasBody       bool
+}
+
+// Returns true if the HTTP request requires a payload. This is relevant for
+// POST and PUT requests that do not have a body parameter.
+func (a *pathInfoAnnotation) RequiresContentLength() bool {
+	return a.Method == "POST" || a.Method == "PUT"
 }
 
 type operationInfo struct {
@@ -205,12 +209,6 @@ type oneOfAnnotation struct {
 	StructQualifiedName string
 	FieldType           string
 	DocLines            []string
-	// The subset of the oneof fields that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
@@ -368,7 +366,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 	var allFeatures []string
 	for _, service := range ann.Services {
 		svcAnn := service.Codec.(*serviceAnnotations)
-		allFeatures = append(allFeatures, svcAnn.ModuleName)
+		allFeatures = append(allFeatures, svcAnn.FeatureName())
 		deps := api.FindServiceDependencies(model, service.ID)
 		for _, id := range deps.Enums {
 			enum, ok := model.State.EnumByID[id]
@@ -377,7 +375,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := enum.Codec.(*enumAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 		}
@@ -388,7 +386,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := msg.Codec.(*messageAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 			for _, one := range msg.OneOfs {
@@ -396,7 +394,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 					continue
 				}
 				annotation := one.Codec.(*oneOfAnnotation)
-				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 				slices.Sort(annotation.FeatureGates)
 				annotation.FeatureGatesOp = "any"
 			}
@@ -468,38 +466,6 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	s.Codec = ann
 }
 
-type fieldPartition struct {
-	singularFields []*api.Field
-	repeatedFields []*api.Field
-	mapFields      []*api.Field
-}
-
-func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
-	isMap := func(f *api.Field) bool {
-		if f.Typez != api.MESSAGE_TYPE {
-			return false
-		}
-		if m, ok := state.MessageByID[f.TypezID]; ok {
-			return m.IsMap
-		}
-		return false
-	}
-	isRepeated := func(f *api.Field) bool {
-		return f.Repeated && !isMap(f)
-	}
-	return fieldPartition{
-		singularFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return !isRepeated(f) && !isMap(f)
-		}),
-		repeatedFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isRepeated(f)
-		}),
-		mapFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isMap(f)
-		}),
-	}
-}
-
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
 func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
@@ -525,7 +491,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
-	partition := partitionFields(basicFields, state)
 	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	m.Codec = &messageAnnotation{
@@ -539,9 +504,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
-		SingularFields:     partition.singularFields,
-		RepeatedFields:     partition.repeatedFields,
-		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
@@ -665,7 +627,6 @@ func annotateSegments(segments []string) []string {
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	partition := partitionFields(oneof.Fields, state)
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := toPascal(oneof.Name)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
@@ -680,9 +641,6 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
-		SingularFields:      partition.singularFields,
-		RepeatedFields:      partition.repeatedFields,
-		MapFields:           partition.mapFields,
 	}
 }
 

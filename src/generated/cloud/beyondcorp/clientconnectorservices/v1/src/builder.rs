@@ -16,7 +16,6 @@
 
 pub mod client_connector_services_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ClientConnectorServicesService][super::super::client::ClientConnectorServicesService].
     ///
@@ -49,7 +48,7 @@ pub mod client_connector_services_service {
     /// Common implementation for [super::super::client::ClientConnectorServicesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod client_connector_services_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod client_connector_services_service {
 
     impl ListClientConnectorServices {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -170,7 +169,7 @@ pub mod client_connector_services_service {
 
     impl GetClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -222,7 +221,7 @@ pub mod client_connector_services_service {
 
     impl CreateClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -262,7 +261,7 @@ pub mod client_connector_services_service {
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -290,7 +289,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientConnectorServiceRequest::parent].
@@ -351,7 +350,7 @@ pub mod client_connector_services_service {
 
     impl UpdateClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -391,7 +390,7 @@ pub mod client_connector_services_service {
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -419,7 +418,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
@@ -480,7 +479,7 @@ pub mod client_connector_services_service {
 
     impl DeleteClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -518,8 +517,10 @@ pub mod client_connector_services_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClientConnectorServiceOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::ClientConnectorServiceOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::ClientConnectorServiceOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -544,7 +545,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClientConnectorServiceRequest::name].
@@ -581,7 +582,7 @@ pub mod client_connector_services_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -662,7 +663,7 @@ pub mod client_connector_services_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -707,7 +708,7 @@ pub mod client_connector_services_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -774,7 +775,7 @@ pub mod client_connector_services_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -830,7 +831,7 @@ pub mod client_connector_services_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -893,7 +894,7 @@ pub mod client_connector_services_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -974,7 +975,7 @@ pub mod client_connector_services_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1022,7 +1023,7 @@ pub mod client_connector_services_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1070,7 +1071,7 @@ pub mod client_connector_services_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

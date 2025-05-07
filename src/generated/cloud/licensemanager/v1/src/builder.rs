@@ -16,7 +16,6 @@
 
 pub mod license_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LicenseManager][super::super::client::LicenseManager].
     ///
@@ -49,7 +48,7 @@ pub mod license_manager {
     /// Common implementation for [super::super::client::LicenseManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod license_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod license_manager {
     pub struct ListConfigurations(RequestBuilder<crate::model::ListConfigurationsRequest>);
 
     impl ListConfigurations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod license_manager {
     pub struct GetConfiguration(RequestBuilder<crate::model::GetConfigurationRequest>);
 
     impl GetConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -207,7 +212,9 @@ pub mod license_manager {
     pub struct CreateConfiguration(RequestBuilder<crate::model::CreateConfigurationRequest>);
 
     impl CreateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,8 +251,10 @@ pub mod license_manager {
             self,
         ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -270,7 +279,7 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConfigurationRequest::parent].
@@ -319,7 +328,9 @@ pub mod license_manager {
     pub struct UpdateConfiguration(RequestBuilder<crate::model::UpdateConfigurationRequest>);
 
     impl UpdateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,8 +367,10 @@ pub mod license_manager {
             self,
         ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -382,7 +395,7 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
@@ -424,7 +437,9 @@ pub mod license_manager {
     pub struct DeleteConfiguration(RequestBuilder<crate::model::DeleteConfigurationRequest>);
 
     impl DeleteConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,7 +473,7 @@ pub mod license_manager {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_configuration`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -483,7 +498,7 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConfigurationRequest::name].
@@ -513,7 +528,9 @@ pub mod license_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -597,7 +614,9 @@ pub mod license_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +663,9 @@ pub mod license_manager {
     );
 
     impl DeactivateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -681,8 +702,10 @@ pub mod license_manager {
             self,
         ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -707,7 +730,7 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeactivateConfigurationRequest::name].
@@ -739,7 +762,9 @@ pub mod license_manager {
     );
 
     impl ReactivateConfiguration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -776,8 +801,10 @@ pub mod license_manager {
             self,
         ) -> impl lro::Poller<crate::model::Configuration, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Configuration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Configuration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -802,7 +829,7 @@ pub mod license_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ReactivateConfigurationRequest::name].
@@ -834,7 +861,9 @@ pub mod license_manager {
     );
 
     impl QueryConfigurationLicenseUsage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -901,7 +930,9 @@ pub mod license_manager {
     pub struct AggregateUsage(RequestBuilder<crate::model::AggregateUsageRequest>);
 
     impl AggregateUsage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1004,7 +1035,9 @@ pub mod license_manager {
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
     impl ListProducts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1088,7 +1121,9 @@ pub mod license_manager {
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
     impl GetProduct {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1133,7 +1168,9 @@ pub mod license_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1212,7 +1249,9 @@ pub mod license_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1255,7 +1294,9 @@ pub mod license_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1334,7 +1375,9 @@ pub mod license_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1380,7 +1423,9 @@ pub mod license_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1426,7 +1471,9 @@ pub mod license_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LicenseManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

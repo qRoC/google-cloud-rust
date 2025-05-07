@@ -16,7 +16,6 @@
 
 pub mod vmware_engine {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VmwareEngine][super::super::client::VmwareEngine].
     ///
@@ -49,7 +48,7 @@ pub mod vmware_engine {
     /// Common implementation for [super::super::client::VmwareEngine] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod vmware_engine {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod vmware_engine {
     pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
     impl ListPrivateClouds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +162,9 @@ pub mod vmware_engine {
     pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
     impl GetPrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,7 +209,9 @@ pub mod vmware_engine {
     pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
 
     impl CreatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -240,8 +247,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -266,7 +275,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateCloudRequest::parent].
@@ -321,7 +330,9 @@ pub mod vmware_engine {
     pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
 
     impl UpdatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -357,8 +368,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -383,7 +396,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
@@ -427,7 +440,9 @@ pub mod vmware_engine {
     pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
 
     impl DeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -463,8 +478,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -489,7 +506,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateCloudRequest::name].
@@ -531,7 +548,9 @@ pub mod vmware_engine {
     pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
 
     impl UndeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -567,8 +586,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -593,7 +614,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeletePrivateCloudRequest::name].
@@ -623,7 +644,9 @@ pub mod vmware_engine {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -707,7 +730,9 @@ pub mod vmware_engine {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +777,9 @@ pub mod vmware_engine {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -785,7 +812,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -810,7 +838,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -865,7 +893,9 @@ pub mod vmware_engine {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -898,7 +928,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -923,7 +954,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
@@ -973,7 +1004,9 @@ pub mod vmware_engine {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1004,7 +1037,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1029,7 +1062,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1059,7 +1092,9 @@ pub mod vmware_engine {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1131,7 +1166,9 @@ pub mod vmware_engine {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1176,7 +1213,9 @@ pub mod vmware_engine {
     pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
 
     impl ListExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1265,7 +1304,9 @@ pub mod vmware_engine {
     );
 
     impl FetchNetworkPolicyExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1344,7 +1385,9 @@ pub mod vmware_engine {
     pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
 
     impl GetExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1392,7 +1435,9 @@ pub mod vmware_engine {
     pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
 
     impl CreateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1429,8 +1474,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAddress,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1455,7 +1502,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAddressRequest::parent].
@@ -1504,7 +1551,9 @@ pub mod vmware_engine {
     pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
 
     impl UpdateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1541,8 +1590,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAddress,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1567,7 +1618,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
@@ -1611,7 +1662,9 @@ pub mod vmware_engine {
     pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
 
     impl DeleteExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1645,7 +1698,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1670,7 +1723,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAddressRequest::name].
@@ -1700,7 +1753,9 @@ pub mod vmware_engine {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1772,7 +1827,9 @@ pub mod vmware_engine {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1817,7 +1874,9 @@ pub mod vmware_engine {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1850,7 +1909,8 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1875,7 +1935,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
@@ -1915,7 +1975,9 @@ pub mod vmware_engine {
     );
 
     impl ListExternalAccessRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2004,7 +2066,9 @@ pub mod vmware_engine {
     pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
 
     impl GetExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2054,7 +2118,9 @@ pub mod vmware_engine {
     );
 
     impl CreateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2091,8 +2157,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAccessRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2117,7 +2185,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccessRuleRequest::parent].
@@ -2170,7 +2238,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2207,8 +2277,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ExternalAccessRule,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2233,7 +2305,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
@@ -2281,7 +2353,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2315,7 +2389,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2340,7 +2414,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAccessRuleRequest::name].
@@ -2370,7 +2444,9 @@ pub mod vmware_engine {
     pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
 
     impl ListLoggingServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2457,7 +2533,9 @@ pub mod vmware_engine {
     pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
 
     impl GetLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2505,7 +2583,9 @@ pub mod vmware_engine {
     pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
 
     impl CreateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2542,8 +2622,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoggingServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2568,7 +2650,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLoggingServerRequest::parent].
@@ -2617,7 +2699,9 @@ pub mod vmware_engine {
     pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
 
     impl UpdateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2654,8 +2738,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoggingServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2680,7 +2766,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
@@ -2724,7 +2810,9 @@ pub mod vmware_engine {
     pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
 
     impl DeleteLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2758,7 +2846,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2783,7 +2871,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLoggingServerRequest::name].
@@ -2813,7 +2901,9 @@ pub mod vmware_engine {
     pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
 
     impl ListNodeTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2891,7 +2981,9 @@ pub mod vmware_engine {
     pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
 
     impl GetNodeType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2936,7 +3028,9 @@ pub mod vmware_engine {
     pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
 
     impl ShowNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2984,7 +3078,9 @@ pub mod vmware_engine {
     pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
 
     impl ShowVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3038,7 +3134,9 @@ pub mod vmware_engine {
     pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
 
     impl ResetNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3074,8 +3172,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3100,7 +3200,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetNsxCredentialsRequest::private_cloud].
@@ -3132,7 +3232,9 @@ pub mod vmware_engine {
     );
 
     impl ResetVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3168,8 +3270,10 @@ pub mod vmware_engine {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateCloud,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3194,7 +3298,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [private_cloud][crate::model::ResetVcenterCredentialsRequest::private_cloud].
@@ -3230,7 +3334,9 @@ pub mod vmware_engine {
     pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
     impl GetDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3278,7 +3384,9 @@ pub mod vmware_engine {
     pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
 
     impl UpdateDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3315,8 +3423,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsForwarding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsForwarding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3341,7 +3451,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
@@ -3385,7 +3495,9 @@ pub mod vmware_engine {
     pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
     impl GetNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3433,7 +3545,9 @@ pub mod vmware_engine {
     pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
 
     impl ListNetworkPeerings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3520,7 +3634,9 @@ pub mod vmware_engine {
     pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
 
     impl CreateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3557,8 +3673,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPeering,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3583,7 +3701,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPeeringRequest::parent].
@@ -3632,7 +3750,9 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
 
     impl DeleteNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3666,7 +3786,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3691,7 +3811,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPeeringRequest::name].
@@ -3721,7 +3841,9 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
 
     impl UpdateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3758,8 +3880,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPeering,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3784,7 +3908,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
@@ -3828,7 +3952,9 @@ pub mod vmware_engine {
     pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
     impl ListPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3909,7 +4035,9 @@ pub mod vmware_engine {
     pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
 
     impl CreateHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3946,8 +4074,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::HcxActivationKey, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::HcxActivationKey,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3972,7 +4102,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateHcxActivationKeyRequest::parent].
@@ -4023,7 +4153,9 @@ pub mod vmware_engine {
     pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
 
     impl ListHcxActivationKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4098,7 +4230,9 @@ pub mod vmware_engine {
     pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
 
     impl GetHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4146,7 +4280,9 @@ pub mod vmware_engine {
     pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
     impl GetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4194,7 +4330,9 @@ pub mod vmware_engine {
     pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
 
     impl ListNetworkPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4281,7 +4419,9 @@ pub mod vmware_engine {
     pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
 
     impl CreateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4318,8 +4458,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4344,7 +4486,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkPolicyRequest::parent].
@@ -4393,7 +4535,9 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
 
     impl UpdateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4430,8 +4574,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NetworkPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4456,7 +4602,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
@@ -4500,7 +4646,9 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
 
     impl DeleteNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4534,7 +4682,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4559,7 +4707,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPolicyRequest::name].
@@ -4591,7 +4739,9 @@ pub mod vmware_engine {
     );
 
     impl ListManagementDnsZoneBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4682,7 +4832,9 @@ pub mod vmware_engine {
     );
 
     impl GetManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4732,7 +4884,9 @@ pub mod vmware_engine {
     );
 
     impl CreateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4769,7 +4923,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -4797,7 +4951,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateManagementDnsZoneBindingRequest::parent].
@@ -4853,7 +5007,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4890,7 +5046,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -4918,7 +5074,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
@@ -4966,7 +5122,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5000,7 +5158,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5025,7 +5183,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementDnsZoneBindingRequest::name].
@@ -5057,7 +5215,9 @@ pub mod vmware_engine {
     );
 
     impl RepairManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5094,7 +5254,7 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ManagementDnsZoneBinding,
                 crate::model::OperationMetadata,
             >;
@@ -5122,7 +5282,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RepairManagementDnsZoneBindingRequest::name].
@@ -5154,7 +5314,9 @@ pub mod vmware_engine {
     );
 
     impl CreateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5191,8 +5353,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VmwareEngineNetwork,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5217,7 +5381,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVmwareEngineNetworkRequest::parent].
@@ -5270,7 +5434,9 @@ pub mod vmware_engine {
     );
 
     impl UpdateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5307,8 +5473,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VmwareEngineNetwork,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5333,7 +5501,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
@@ -5381,7 +5549,9 @@ pub mod vmware_engine {
     );
 
     impl DeleteVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5415,7 +5585,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5440,7 +5610,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVmwareEngineNetworkRequest::name].
@@ -5476,7 +5646,9 @@ pub mod vmware_engine {
     pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
 
     impl GetVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5526,7 +5698,9 @@ pub mod vmware_engine {
     );
 
     impl ListVmwareEngineNetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5617,7 +5791,9 @@ pub mod vmware_engine {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5654,8 +5830,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5680,7 +5858,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -5731,7 +5909,9 @@ pub mod vmware_engine {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5779,7 +5959,9 @@ pub mod vmware_engine {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5870,7 +6052,9 @@ pub mod vmware_engine {
     );
 
     impl UpdatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5907,8 +6091,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5933,7 +6119,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
@@ -5981,7 +6167,9 @@ pub mod vmware_engine {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6015,7 +6203,7 @@ pub mod vmware_engine {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6040,7 +6228,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
@@ -6072,7 +6260,9 @@ pub mod vmware_engine {
     );
 
     impl ListPrivateConnectionPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6151,7 +6341,9 @@ pub mod vmware_engine {
     pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
 
     impl GrantDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6188,8 +6380,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsBindPermission,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6214,7 +6408,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::GrantDnsBindPermissionRequest::name].
@@ -6255,7 +6449,9 @@ pub mod vmware_engine {
     pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
 
     impl GetDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6305,7 +6501,9 @@ pub mod vmware_engine {
     );
 
     impl RevokeDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6342,8 +6540,10 @@ pub mod vmware_engine {
             self,
         ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsBindPermission,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6368,7 +6568,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevokeDnsBindPermissionRequest::name].
@@ -6409,7 +6609,9 @@ pub mod vmware_engine {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6488,7 +6690,9 @@ pub mod vmware_engine {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6531,7 +6735,9 @@ pub mod vmware_engine {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6596,7 +6802,9 @@ pub mod vmware_engine {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6650,7 +6858,9 @@ pub mod vmware_engine {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6711,7 +6921,9 @@ pub mod vmware_engine {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6790,7 +7002,9 @@ pub mod vmware_engine {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6836,7 +7050,9 @@ pub mod vmware_engine {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

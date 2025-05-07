@@ -16,7 +16,6 @@
 
 pub mod video_intelligence_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VideoIntelligenceService][super::super::client::VideoIntelligenceService].
     ///
@@ -49,7 +48,7 @@ pub mod video_intelligence_service {
     /// Common implementation for [super::super::client::VideoIntelligenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod video_intelligence_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod video_intelligence_service {
 
     impl AnnotateVideo {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -110,7 +109,7 @@ pub mod video_intelligence_service {
             self,
         ) -> impl lro::Poller<crate::model::AnnotateVideoResponse, crate::model::AnnotateVideoProgress>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AnnotateVideoResponse,
                 crate::model::AnnotateVideoProgress,
             >;
@@ -138,7 +137,7 @@ pub mod video_intelligence_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [input_uri][crate::model::AnnotateVideoRequest::input_uri].
@@ -150,6 +149,19 @@ pub mod video_intelligence_service {
         /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
         pub fn set_input_content<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.input_content = v.into();
+            self
+        }
+
+        /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_features<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Feature>,
+        {
+            use std::iter::Iterator;
+            self.0.request.features = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -173,19 +185,6 @@ pub mod video_intelligence_service {
             self.0.request.location_id = v.into();
             self
         }
-
-        /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_features<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Feature>,
-        {
-            use std::iter::Iterator;
-            self.0.request.features = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -201,7 +200,7 @@ pub mod video_intelligence_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -282,7 +281,7 @@ pub mod video_intelligence_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -330,7 +329,7 @@ pub mod video_intelligence_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -378,7 +377,7 @@ pub mod video_intelligence_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod dataproc_metastore {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataprocMetastore][super::super::client::DataprocMetastore].
     ///
@@ -49,7 +48,7 @@ pub mod dataproc_metastore {
     /// Common implementation for [super::super::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dataproc_metastore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod dataproc_metastore {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +159,9 @@ pub mod dataproc_metastore {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -201,7 +206,9 @@ pub mod dataproc_metastore {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -234,7 +241,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +267,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -308,7 +316,9 @@ pub mod dataproc_metastore {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,7 +351,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,7 +377,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
@@ -410,7 +421,9 @@ pub mod dataproc_metastore {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -441,7 +454,7 @@ pub mod dataproc_metastore {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +479,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -496,7 +509,9 @@ pub mod dataproc_metastore {
     pub struct ListMetadataImports(RequestBuilder<crate::model::ListMetadataImportsRequest>);
 
     impl ListMetadataImports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -583,7 +598,9 @@ pub mod dataproc_metastore {
     pub struct GetMetadataImport(RequestBuilder<crate::model::GetMetadataImportRequest>);
 
     impl GetMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -631,7 +648,9 @@ pub mod dataproc_metastore {
     pub struct CreateMetadataImport(RequestBuilder<crate::model::CreateMetadataImportRequest>);
 
     impl CreateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,8 +687,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataImport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataImport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -694,7 +715,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataImportRequest::parent].
@@ -743,7 +764,9 @@ pub mod dataproc_metastore {
     pub struct UpdateMetadataImport(RequestBuilder<crate::model::UpdateMetadataImportRequest>);
 
     impl UpdateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,8 +803,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataImport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataImport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -806,7 +831,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
@@ -850,7 +875,9 @@ pub mod dataproc_metastore {
     pub struct ExportMetadata(RequestBuilder<crate::model::ExportMetadataRequest>);
 
     impl ExportMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -884,8 +911,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataExport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataExport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataExport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -910,7 +939,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::ExportMetadataRequest::service].
@@ -976,7 +1005,9 @@ pub mod dataproc_metastore {
     pub struct RestoreService(RequestBuilder<crate::model::RestoreServiceRequest>);
 
     impl RestoreService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1009,7 +1040,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1034,7 +1066,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::RestoreServiceRequest::service].
@@ -1081,7 +1113,9 @@ pub mod dataproc_metastore {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1165,7 +1199,9 @@ pub mod dataproc_metastore {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1210,7 +1246,9 @@ pub mod dataproc_metastore {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1243,7 +1281,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1268,7 +1307,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1317,7 +1356,9 @@ pub mod dataproc_metastore {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1348,7 +1389,7 @@ pub mod dataproc_metastore {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1373,7 +1414,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1403,7 +1444,9 @@ pub mod dataproc_metastore {
     pub struct QueryMetadata(RequestBuilder<crate::model::QueryMetadataRequest>);
 
     impl QueryMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1437,7 +1480,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::QueryMetadataResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::QueryMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1465,7 +1508,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::QueryMetadataRequest::service].
@@ -1497,7 +1540,9 @@ pub mod dataproc_metastore {
     pub struct MoveTableToDatabase(RequestBuilder<crate::model::MoveTableToDatabaseRequest>);
 
     impl MoveTableToDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1534,7 +1579,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MoveTableToDatabaseResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveTableToDatabaseResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1562,7 +1607,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::MoveTableToDatabaseRequest::service].
@@ -1612,7 +1657,9 @@ pub mod dataproc_metastore {
     );
 
     impl AlterMetadataResourceLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1651,7 +1698,7 @@ pub mod dataproc_metastore {
             crate::model::AlterMetadataResourceLocationResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AlterMetadataResourceLocationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1679,7 +1726,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::AlterMetadataResourceLocationRequest::service].
@@ -1719,7 +1766,9 @@ pub mod dataproc_metastore {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1798,7 +1847,9 @@ pub mod dataproc_metastore {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1841,7 +1892,9 @@ pub mod dataproc_metastore {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1906,7 +1959,9 @@ pub mod dataproc_metastore {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1960,7 +2015,9 @@ pub mod dataproc_metastore {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2021,7 +2078,9 @@ pub mod dataproc_metastore {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2100,7 +2159,9 @@ pub mod dataproc_metastore {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2146,7 +2207,9 @@ pub mod dataproc_metastore {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2192,7 +2255,9 @@ pub mod dataproc_metastore {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2236,7 +2301,6 @@ pub mod dataproc_metastore {
 
 pub mod dataproc_metastore_federation {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataprocMetastoreFederation][super::super::client::DataprocMetastoreFederation].
     ///
@@ -2269,7 +2333,7 @@ pub mod dataproc_metastore_federation {
     /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2279,7 +2343,7 @@ pub mod dataproc_metastore_federation {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self {
                 stub,
@@ -2295,7 +2359,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListFederations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2381,7 +2445,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2428,7 +2492,7 @@ pub mod dataproc_metastore_federation {
 
     impl CreateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2466,7 +2530,7 @@ pub mod dataproc_metastore_federation {
             self,
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Federation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2491,7 +2555,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFederationRequest::parent].
@@ -2541,7 +2605,7 @@ pub mod dataproc_metastore_federation {
 
     impl UpdateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2579,7 +2643,7 @@ pub mod dataproc_metastore_federation {
             self,
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Federation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2604,7 +2668,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
@@ -2649,7 +2713,7 @@ pub mod dataproc_metastore_federation {
 
     impl DeleteFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2684,7 +2748,7 @@ pub mod dataproc_metastore_federation {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_federation`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2709,7 +2773,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFederationRequest::name].
@@ -2740,7 +2804,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2821,7 +2885,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2866,7 +2930,7 @@ pub mod dataproc_metastore_federation {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2933,7 +2997,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2989,7 +3053,7 @@ pub mod dataproc_metastore_federation {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3052,7 +3116,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3133,7 +3197,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3181,7 +3245,7 @@ pub mod dataproc_metastore_federation {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3229,7 +3293,7 @@ pub mod dataproc_metastore_federation {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

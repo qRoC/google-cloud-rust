@@ -16,7 +16,6 @@
 
 pub mod app_hub {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AppHub][super::super::client::AppHub].
     ///
@@ -49,7 +48,7 @@ pub mod app_hub {
     /// Common implementation for [super::super::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AppHub>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod app_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +73,7 @@ pub mod app_hub {
     );
 
     impl LookupServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,7 +123,7 @@ pub mod app_hub {
     );
 
     impl ListServiceProjectAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -215,7 +214,7 @@ pub mod app_hub {
     );
 
     impl CreateServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -252,7 +251,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::ServiceProjectAttachment, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServiceProjectAttachment,
                 crate::model::OperationMetadata,
             >;
@@ -280,7 +279,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceProjectAttachmentRequest::parent].
@@ -336,7 +335,7 @@ pub mod app_hub {
     );
 
     impl GetServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -386,7 +385,7 @@ pub mod app_hub {
     );
 
     impl DeleteServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -420,7 +419,7 @@ pub mod app_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_project_attachment`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -445,7 +444,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceProjectAttachmentRequest::name].
@@ -477,7 +476,7 @@ pub mod app_hub {
     );
 
     impl DetachServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -525,7 +524,7 @@ pub mod app_hub {
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
     impl ListDiscoveredServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,7 +613,7 @@ pub mod app_hub {
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
     impl GetDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -664,7 +663,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -720,7 +719,7 @@ pub mod app_hub {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,7 +803,7 @@ pub mod app_hub {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -837,7 +836,8 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -862,7 +862,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -911,7 +911,7 @@ pub mod app_hub {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -956,7 +956,7 @@ pub mod app_hub {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -989,7 +989,8 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1014,7 +1015,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
@@ -1058,7 +1059,7 @@ pub mod app_hub {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1089,7 +1090,7 @@ pub mod app_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1114,7 +1115,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -1146,7 +1147,7 @@ pub mod app_hub {
     );
 
     impl ListDiscoveredWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1235,7 +1236,7 @@ pub mod app_hub {
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
     impl GetDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1285,7 +1286,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1341,7 +1342,7 @@ pub mod app_hub {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1425,7 +1426,7 @@ pub mod app_hub {
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1459,7 +1460,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workload, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workload, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1484,7 +1485,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
@@ -1533,7 +1534,7 @@ pub mod app_hub {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1578,7 +1579,7 @@ pub mod app_hub {
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1612,7 +1613,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workload, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workload, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1637,7 +1638,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
@@ -1681,7 +1682,7 @@ pub mod app_hub {
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1712,7 +1713,7 @@ pub mod app_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workload`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1737,7 +1738,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
@@ -1767,7 +1768,7 @@ pub mod app_hub {
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1854,7 +1855,7 @@ pub mod app_hub {
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1890,8 +1891,10 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Application, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Application, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Application,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1916,7 +1919,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateApplicationRequest::parent].
@@ -1965,7 +1968,7 @@ pub mod app_hub {
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2010,7 +2013,7 @@ pub mod app_hub {
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2046,8 +2049,10 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Application, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Application, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Application,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2072,7 +2077,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
@@ -2116,7 +2121,7 @@ pub mod app_hub {
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2150,7 +2155,7 @@ pub mod app_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_application`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2175,7 +2180,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteApplicationRequest::name].
@@ -2205,7 +2210,7 @@ pub mod app_hub {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2284,7 +2289,7 @@ pub mod app_hub {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2327,7 +2332,7 @@ pub mod app_hub {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2392,7 +2397,7 @@ pub mod app_hub {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2446,7 +2451,7 @@ pub mod app_hub {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2507,7 +2512,7 @@ pub mod app_hub {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2586,7 +2591,7 @@ pub mod app_hub {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2632,7 +2637,7 @@ pub mod app_hub {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2678,7 +2683,7 @@ pub mod app_hub {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

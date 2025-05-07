@@ -16,7 +16,6 @@
 
 pub mod tpu {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Tpu][super::super::client::Tpu].
     ///
@@ -49,7 +48,7 @@ pub mod tpu {
     /// Common implementation for [super::super::client::Tpu] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Tpu>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod tpu {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod tpu {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +143,7 @@ pub mod tpu {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +188,7 @@ pub mod tpu {
     pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
 
     impl CreateNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +221,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -247,7 +247,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeRequest::parent].
@@ -285,7 +285,7 @@ pub mod tpu {
     pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
 
     impl DeleteNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -316,7 +316,7 @@ pub mod tpu {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -341,7 +341,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNodeRequest::name].
@@ -365,7 +365,7 @@ pub mod tpu {
     pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
 
     impl StopNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -398,7 +398,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -423,7 +424,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopNodeRequest::name].
@@ -447,7 +448,7 @@ pub mod tpu {
     pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
 
     impl StartNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -480,7 +481,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -505,7 +507,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartNodeRequest::name].
@@ -529,7 +531,7 @@ pub mod tpu {
     pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
 
     impl UpdateNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -562,7 +564,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -587,7 +590,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
@@ -622,7 +625,7 @@ pub mod tpu {
     pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
 
     impl ListQueuedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,7 +700,7 @@ pub mod tpu {
     pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
     impl GetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -745,7 +748,7 @@ pub mod tpu {
     pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
 
     impl CreateQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -782,8 +785,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -808,7 +813,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueuedResourceRequest::parent].
@@ -855,7 +860,7 @@ pub mod tpu {
     pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
 
     impl DeleteQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -889,7 +894,7 @@ pub mod tpu {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_queued_resource`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -914,7 +919,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteQueuedResourceRequest::name].
@@ -950,7 +955,7 @@ pub mod tpu {
     pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
 
     impl ResetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -987,8 +992,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1013,7 +1020,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetQueuedResourceRequest::name].
@@ -1039,7 +1046,7 @@ pub mod tpu {
     );
 
     impl GenerateServiceIdentity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,7 +1094,7 @@ pub mod tpu {
     pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
 
     impl ListAcceleratorTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1174,7 +1181,7 @@ pub mod tpu {
     pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
 
     impl GetAcceleratorType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1222,7 +1229,7 @@ pub mod tpu {
     pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
 
     impl ListRuntimeVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1309,7 +1316,7 @@ pub mod tpu {
     pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
     impl GetRuntimeVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1357,7 +1364,7 @@ pub mod tpu {
     pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
 
     impl GetGuestAttributes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1422,7 +1429,7 @@ pub mod tpu {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1501,7 +1508,7 @@ pub mod tpu {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1544,7 +1551,7 @@ pub mod tpu {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1623,7 +1630,7 @@ pub mod tpu {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1669,7 +1676,7 @@ pub mod tpu {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1715,7 +1722,7 @@ pub mod tpu {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,7 +16,6 @@
 
 pub mod policy_bindings {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PolicyBindings][super::super::client::PolicyBindings].
     ///
@@ -49,7 +48,7 @@ pub mod policy_bindings {
     /// Common implementation for [super::super::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod policy_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod policy_bindings {
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
     impl CreatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,8 +112,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -135,7 +140,7 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyBindingRequest::parent].
@@ -184,7 +189,9 @@ pub mod policy_bindings {
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -232,7 +239,9 @@ pub mod policy_bindings {
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
     impl UpdatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -269,8 +278,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -295,7 +306,7 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
@@ -337,7 +348,9 @@ pub mod policy_bindings {
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
     impl DeletePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -371,7 +384,7 @@ pub mod policy_bindings {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -396,7 +409,7 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyBindingRequest::name].
@@ -432,7 +445,9 @@ pub mod policy_bindings {
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
     impl ListPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -515,7 +530,9 @@ pub mod policy_bindings {
     );
 
     impl SearchTargetPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +617,9 @@ pub mod policy_bindings {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +663,6 @@ pub mod policy_bindings {
 
 pub mod principal_access_boundary_policies {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [PrincipalAccessBoundaryPolicies][super::super::client::PrincipalAccessBoundaryPolicies].
     ///
@@ -677,7 +695,7 @@ pub mod principal_access_boundary_policies {
     /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -687,7 +705,7 @@ pub mod principal_access_boundary_policies {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self {
                 stub,
@@ -705,7 +723,7 @@ pub mod principal_access_boundary_policies {
 
     impl CreatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -743,7 +761,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -771,7 +789,7 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::parent].
@@ -828,7 +846,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetPrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -880,7 +898,7 @@ pub mod principal_access_boundary_policies {
 
     impl UpdatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -918,7 +936,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -946,7 +964,7 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
@@ -993,7 +1011,7 @@ pub mod principal_access_boundary_policies {
 
     impl DeletePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1028,7 +1046,7 @@ pub mod principal_access_boundary_policies {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1053,7 +1071,7 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::name].
@@ -1098,7 +1116,7 @@ pub mod principal_access_boundary_policies {
 
     impl ListPrincipalAccessBoundaryPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1181,7 +1199,7 @@ pub mod principal_access_boundary_policies {
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1264,7 +1282,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

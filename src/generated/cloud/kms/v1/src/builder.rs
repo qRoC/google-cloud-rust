@@ -16,7 +16,6 @@
 
 pub mod autokey {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Autokey][super::super::client::Autokey].
     ///
@@ -49,7 +48,7 @@ pub mod autokey {
     /// Common implementation for [super::super::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Autokey>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod autokey {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod autokey {
     pub struct CreateKeyHandle(RequestBuilder<crate::model::CreateKeyHandleRequest>);
 
     impl CreateKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -106,8 +105,10 @@ pub mod autokey {
             self,
         ) -> impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::KeyHandle,
+                crate::model::CreateKeyHandleMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -132,7 +133,7 @@ pub mod autokey {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
@@ -173,7 +174,7 @@ pub mod autokey {
     pub struct GetKeyHandle(RequestBuilder<crate::model::GetKeyHandleRequest>);
 
     impl GetKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -218,7 +219,7 @@ pub mod autokey {
     pub struct ListKeyHandles(RequestBuilder<crate::model::ListKeyHandlesRequest>);
 
     impl ListKeyHandles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +297,7 @@ pub mod autokey {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,7 +376,7 @@ pub mod autokey {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -418,7 +419,7 @@ pub mod autokey {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -483,7 +484,7 @@ pub mod autokey {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -537,7 +538,7 @@ pub mod autokey {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -598,7 +599,7 @@ pub mod autokey {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,7 +643,6 @@ pub mod autokey {
 
 pub mod autokey_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AutokeyAdmin][super::super::client::AutokeyAdmin].
     ///
@@ -675,7 +675,7 @@ pub mod autokey_admin {
     /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -684,7 +684,9 @@ pub mod autokey_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -698,7 +700,9 @@ pub mod autokey_admin {
     pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
 
     impl UpdateAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -760,7 +764,9 @@ pub mod autokey_admin {
     pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
     impl GetAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -810,7 +816,9 @@ pub mod autokey_admin {
     );
 
     impl ShowEffectiveAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -858,7 +866,9 @@ pub mod autokey_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -937,7 +947,9 @@ pub mod autokey_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -980,7 +992,9 @@ pub mod autokey_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1045,7 +1059,9 @@ pub mod autokey_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1099,7 +1115,9 @@ pub mod autokey_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1160,7 +1178,9 @@ pub mod autokey_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1204,7 +1224,6 @@ pub mod autokey_admin {
 
 pub mod ekm_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EkmService][super::super::client::EkmService].
     ///
@@ -1237,7 +1256,7 @@ pub mod ekm_service {
     /// Common implementation for [super::super::client::EkmService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EkmService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1246,7 +1265,9 @@ pub mod ekm_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1260,7 +1281,9 @@ pub mod ekm_service {
     pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
 
     impl ListEkmConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1347,7 +1370,9 @@ pub mod ekm_service {
     pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
     impl GetEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1395,7 +1420,9 @@ pub mod ekm_service {
     pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
 
     impl CreateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1462,7 +1489,9 @@ pub mod ekm_service {
     pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
 
     impl UpdateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1524,7 +1553,9 @@ pub mod ekm_service {
     pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
 
     impl GetEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1569,7 +1600,9 @@ pub mod ekm_service {
     pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
     impl UpdateEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1628,7 +1661,9 @@ pub mod ekm_service {
     pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
 
     impl VerifyConnectivity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1676,7 +1711,9 @@ pub mod ekm_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1755,7 +1792,9 @@ pub mod ekm_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1798,7 +1837,9 @@ pub mod ekm_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1863,7 +1904,9 @@ pub mod ekm_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1917,7 +1960,9 @@ pub mod ekm_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1978,7 +2023,9 @@ pub mod ekm_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2022,7 +2069,6 @@ pub mod ekm_service {
 
 pub mod key_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [KeyManagementService][super::super::client::KeyManagementService].
     ///
@@ -2055,7 +2101,7 @@ pub mod key_management_service {
     /// Common implementation for [super::super::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2065,7 +2111,7 @@ pub mod key_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -2081,7 +2127,7 @@ pub mod key_management_service {
 
     impl ListKeyRings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2167,7 +2213,7 @@ pub mod key_management_service {
 
     impl ListCryptoKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2262,7 +2308,7 @@ pub mod key_management_service {
 
     impl ListCryptoKeyVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2360,7 +2406,7 @@ pub mod key_management_service {
 
     impl ListImportJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2446,7 +2492,7 @@ pub mod key_management_service {
 
     impl GetKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2493,7 +2539,7 @@ pub mod key_management_service {
 
     impl GetCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2540,7 +2586,7 @@ pub mod key_management_service {
 
     impl GetCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2590,7 +2636,7 @@ pub mod key_management_service {
 
     impl GetPublicKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2646,7 +2692,7 @@ pub mod key_management_service {
 
     impl GetImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2693,7 +2739,7 @@ pub mod key_management_service {
 
     impl CreateKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2759,7 +2805,7 @@ pub mod key_management_service {
 
     impl CreateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2831,7 +2877,7 @@ pub mod key_management_service {
 
     impl CreateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2894,7 +2940,7 @@ pub mod key_management_service {
 
     impl ImportCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3004,7 +3050,7 @@ pub mod key_management_service {
 
     impl CreateImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3070,7 +3116,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3131,7 +3177,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3199,7 +3245,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKeyPrimaryVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3259,7 +3305,7 @@ pub mod key_management_service {
 
     impl DestroyCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3311,7 +3357,7 @@ pub mod key_management_service {
 
     impl RestoreCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3361,7 +3407,7 @@ pub mod key_management_service {
 
     impl Encrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3442,7 +3488,7 @@ pub mod key_management_service {
 
     impl Decrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3523,7 +3569,7 @@ pub mod key_management_service {
 
     impl RawEncrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3619,7 +3665,7 @@ pub mod key_management_service {
 
     impl RawDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3723,7 +3769,7 @@ pub mod key_management_service {
 
     impl AsymmetricSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3803,7 +3849,7 @@ pub mod key_management_service {
 
     impl AsymmetricDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3870,7 +3916,7 @@ pub mod key_management_service {
 
     impl MacSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3934,7 +3980,7 @@ pub mod key_management_service {
 
     impl MacVerify {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4015,7 +4061,7 @@ pub mod key_management_service {
 
     impl GenerateRandomBytes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4078,7 +4124,7 @@ pub mod key_management_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4159,7 +4205,7 @@ pub mod key_management_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4204,7 +4250,7 @@ pub mod key_management_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4271,7 +4317,7 @@ pub mod key_management_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4327,7 +4373,7 @@ pub mod key_management_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4390,7 +4436,7 @@ pub mod key_management_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

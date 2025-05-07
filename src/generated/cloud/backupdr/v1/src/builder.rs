@@ -16,7 +16,6 @@
 
 pub mod backup_dr {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BackupDR][super::super::client::BackupDR].
     ///
@@ -49,7 +48,7 @@ pub mod backup_dr {
     /// Common implementation for [super::super::client::BackupDR] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BackupDR>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod backup_dr {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod backup_dr {
     pub struct ListManagementServers(RequestBuilder<crate::model::ListManagementServersRequest>);
 
     impl ListManagementServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +164,7 @@ pub mod backup_dr {
     pub struct GetManagementServer(RequestBuilder<crate::model::GetManagementServerRequest>);
 
     impl GetManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +212,7 @@ pub mod backup_dr {
     pub struct CreateManagementServer(RequestBuilder<crate::model::CreateManagementServerRequest>);
 
     impl CreateManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,8 +249,10 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::ManagementServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ManagementServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ManagementServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -276,7 +277,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateManagementServerRequest::parent].
@@ -327,7 +328,7 @@ pub mod backup_dr {
     pub struct DeleteManagementServer(RequestBuilder<crate::model::DeleteManagementServerRequest>);
 
     impl DeleteManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +362,7 @@ pub mod backup_dr {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_server`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -386,7 +387,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementServerRequest::name].
@@ -416,7 +417,7 @@ pub mod backup_dr {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,8 +453,10 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -478,7 +481,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
@@ -533,7 +536,7 @@ pub mod backup_dr {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -628,7 +631,7 @@ pub mod backup_dr {
     );
 
     impl FetchUsableBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -717,7 +720,7 @@ pub mod backup_dr {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -768,7 +771,7 @@ pub mod backup_dr {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,8 +807,10 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -830,7 +835,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
@@ -886,7 +891,7 @@ pub mod backup_dr {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -920,7 +925,7 @@ pub mod backup_dr {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -945,7 +950,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
@@ -1005,7 +1010,7 @@ pub mod backup_dr {
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1089,7 +1094,7 @@ pub mod backup_dr {
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,7 +1139,7 @@ pub mod backup_dr {
     pub struct UpdateDataSource(RequestBuilder<crate::model::UpdateDataSourceRequest>);
 
     impl UpdateDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1171,7 +1176,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::DataSource, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::DataSource, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::DataSource, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1196,7 +1201,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
@@ -1246,7 +1251,7 @@ pub mod backup_dr {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1336,7 +1341,7 @@ pub mod backup_dr {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1387,7 +1392,7 @@ pub mod backup_dr {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1420,7 +1425,8 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1445,7 +1451,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
@@ -1489,7 +1495,7 @@ pub mod backup_dr {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1522,7 +1528,8 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1547,7 +1554,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1577,7 +1584,7 @@ pub mod backup_dr {
     pub struct RestoreBackup(RequestBuilder<crate::model::RestoreBackupRequest>);
 
     impl RestoreBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1611,7 +1618,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::RestoreBackupResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RestoreBackupResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1639,7 +1646,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreBackupRequest::name].
@@ -1727,7 +1734,7 @@ pub mod backup_dr {
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1764,7 +1771,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1789,7 +1796,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
@@ -1838,7 +1845,7 @@ pub mod backup_dr {
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1883,7 +1890,7 @@ pub mod backup_dr {
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1967,7 +1974,7 @@ pub mod backup_dr {
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2001,7 +2008,7 @@ pub mod backup_dr {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2026,7 +2033,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
@@ -2058,7 +2065,7 @@ pub mod backup_dr {
     );
 
     impl CreateBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2095,7 +2102,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlanAssociation, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BackupPlanAssociation,
                 crate::model::OperationMetadata,
             >;
@@ -2123,7 +2130,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanAssociationRequest::parent].
@@ -2179,7 +2186,7 @@ pub mod backup_dr {
     );
 
     impl GetBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2229,7 +2236,7 @@ pub mod backup_dr {
     );
 
     impl ListBackupPlanAssociations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2314,7 +2321,7 @@ pub mod backup_dr {
     );
 
     impl DeleteBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2348,7 +2355,7 @@ pub mod backup_dr {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan_association`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2373,7 +2380,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanAssociationRequest::name].
@@ -2403,7 +2410,7 @@ pub mod backup_dr {
     pub struct TriggerBackup(RequestBuilder<crate::model::TriggerBackupRequest>);
 
     impl TriggerBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2437,7 +2444,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlanAssociation, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BackupPlanAssociation,
                 crate::model::OperationMetadata,
             >;
@@ -2465,7 +2472,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TriggerBackupRequest::name].
@@ -2503,7 +2510,7 @@ pub mod backup_dr {
     pub struct InitializeService(RequestBuilder<crate::model::InitializeServiceRequest>);
 
     impl InitializeService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2540,7 +2547,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::InitializeServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InitializeServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2568,7 +2575,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::InitializeServiceRequest::name].
@@ -2606,7 +2613,7 @@ pub mod backup_dr {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2685,7 +2692,7 @@ pub mod backup_dr {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2728,7 +2735,7 @@ pub mod backup_dr {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2793,7 +2800,7 @@ pub mod backup_dr {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2847,7 +2854,7 @@ pub mod backup_dr {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2908,7 +2915,7 @@ pub mod backup_dr {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2987,7 +2994,7 @@ pub mod backup_dr {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3033,7 +3040,7 @@ pub mod backup_dr {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3079,7 +3086,7 @@ pub mod backup_dr {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

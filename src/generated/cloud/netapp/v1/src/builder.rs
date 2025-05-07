@@ -16,7 +16,6 @@
 
 pub mod net_app {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetApp][super::super::client::NetApp].
     ///
@@ -49,7 +48,7 @@ pub mod net_app {
     /// Common implementation for [super::super::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetApp>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod net_app {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod net_app {
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +158,7 @@ pub mod net_app {
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -195,8 +194,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -221,7 +222,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateStoragePoolRequest::parent].
@@ -264,7 +265,7 @@ pub mod net_app {
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +310,7 @@ pub mod net_app {
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -345,8 +346,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -371,7 +374,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
@@ -409,7 +412,7 @@ pub mod net_app {
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -443,7 +446,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_storage_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -468,7 +471,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteStoragePoolRequest::name].
@@ -494,7 +497,7 @@ pub mod net_app {
     );
 
     impl ValidateDirectoryService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,7 +531,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `validate_directory_service`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -553,7 +556,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ValidateDirectoryServiceRequest::name].
@@ -588,7 +591,7 @@ pub mod net_app {
     );
 
     impl SwitchActiveReplicaZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,8 +627,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -650,7 +655,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SwitchActiveReplicaZoneRequest::name].
@@ -674,7 +679,7 @@ pub mod net_app {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -758,7 +763,7 @@ pub mod net_app {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -803,7 +808,7 @@ pub mod net_app {
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,7 +841,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -861,7 +867,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeRequest::parent].
@@ -904,7 +910,7 @@ pub mod net_app {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -937,7 +943,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -962,7 +969,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
@@ -1000,7 +1007,7 @@ pub mod net_app {
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1031,7 +1038,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_volume`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1056,7 +1063,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeRequest::name].
@@ -1086,7 +1093,7 @@ pub mod net_app {
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1119,7 +1126,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1144,7 +1152,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevertVolumeRequest::name].
@@ -1176,7 +1184,7 @@ pub mod net_app {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1260,7 +1268,7 @@ pub mod net_app {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1305,7 +1313,7 @@ pub mod net_app {
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1339,7 +1347,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1364,7 +1372,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -1407,7 +1415,7 @@ pub mod net_app {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1438,7 +1446,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1463,7 +1471,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1487,7 +1495,7 @@ pub mod net_app {
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1521,7 +1529,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1546,7 +1554,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
@@ -1584,7 +1592,7 @@ pub mod net_app {
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
     impl ListActiveDirectories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1671,7 +1679,7 @@ pub mod net_app {
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
     impl GetActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1719,7 +1727,7 @@ pub mod net_app {
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
     impl CreateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1756,8 +1764,10 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::ActiveDirectory, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ActiveDirectory, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ActiveDirectory,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1782,7 +1792,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateActiveDirectoryRequest::parent].
@@ -1825,7 +1835,7 @@ pub mod net_app {
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
     impl UpdateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1862,8 +1872,10 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::ActiveDirectory, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ActiveDirectory, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ActiveDirectory,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1888,7 +1900,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
@@ -1926,7 +1938,7 @@ pub mod net_app {
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
     impl DeleteActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1960,7 +1972,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_active_directory`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1985,7 +1997,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteActiveDirectoryRequest::name].
@@ -2009,7 +2021,7 @@ pub mod net_app {
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2093,7 +2105,7 @@ pub mod net_app {
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2127,7 +2139,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2152,7 +2164,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKmsConfigRequest::parent].
@@ -2195,7 +2207,7 @@ pub mod net_app {
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2240,7 +2252,7 @@ pub mod net_app {
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2274,7 +2286,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2299,7 +2311,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
@@ -2337,7 +2349,7 @@ pub mod net_app {
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2371,7 +2383,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2396,7 +2408,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EncryptVolumesRequest::name].
@@ -2420,7 +2432,7 @@ pub mod net_app {
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2465,7 +2477,7 @@ pub mod net_app {
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2496,7 +2508,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_kms_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2521,7 +2533,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteKmsConfigRequest::name].
@@ -2545,7 +2557,7 @@ pub mod net_app {
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2632,7 +2644,7 @@ pub mod net_app {
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2677,7 +2689,7 @@ pub mod net_app {
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2713,8 +2725,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2739,7 +2753,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReplicationRequest::parent].
@@ -2782,7 +2796,7 @@ pub mod net_app {
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2816,7 +2830,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_replication`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2841,7 +2855,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteReplicationRequest::name].
@@ -2865,7 +2879,7 @@ pub mod net_app {
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2901,8 +2915,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2927,7 +2943,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
@@ -2965,7 +2981,7 @@ pub mod net_app {
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2998,8 +3014,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3024,7 +3042,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopReplicationRequest::name].
@@ -3054,7 +3072,7 @@ pub mod net_app {
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3090,8 +3108,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3116,7 +3136,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResumeReplicationRequest::name].
@@ -3142,7 +3162,7 @@ pub mod net_app {
     );
 
     impl ReverseReplicationDirection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3178,8 +3198,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3204,7 +3226,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ReverseReplicationDirectionRequest::name].
@@ -3228,7 +3250,7 @@ pub mod net_app {
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3264,8 +3286,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3290,7 +3314,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EstablishPeeringRequest::name].
@@ -3317,14 +3341,6 @@ pub mod net_app {
             self
         }
 
-        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.peer_volume_name = v.into();
-            self
-        }
-
         /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
         pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
         where
@@ -3333,6 +3349,14 @@ pub mod net_app {
         {
             use std::iter::Iterator;
             self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
             self
         }
     }
@@ -3349,7 +3373,7 @@ pub mod net_app {
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3382,8 +3406,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3408,7 +3434,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SyncReplicationRequest::name].
@@ -3432,7 +3458,7 @@ pub mod net_app {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3468,8 +3494,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3494,7 +3522,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
@@ -3537,7 +3565,7 @@ pub mod net_app {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3582,7 +3610,7 @@ pub mod net_app {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3669,7 +3697,7 @@ pub mod net_app {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3705,8 +3733,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3731,7 +3761,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
@@ -3769,7 +3799,7 @@ pub mod net_app {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3803,7 +3833,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3828,7 +3858,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
@@ -3852,7 +3882,7 @@ pub mod net_app {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3885,7 +3915,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3910,7 +3941,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -3953,7 +3984,7 @@ pub mod net_app {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3998,7 +4029,7 @@ pub mod net_app {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4082,7 +4113,7 @@ pub mod net_app {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4113,7 +4144,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4138,7 +4169,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -4162,7 +4193,7 @@ pub mod net_app {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4195,7 +4226,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4220,7 +4252,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
@@ -4258,7 +4290,7 @@ pub mod net_app {
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
     impl CreateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4294,8 +4326,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4320,7 +4354,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPolicyRequest::parent].
@@ -4363,7 +4397,7 @@ pub mod net_app {
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4408,7 +4442,7 @@ pub mod net_app {
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
     impl ListBackupPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4495,7 +4529,7 @@ pub mod net_app {
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
     impl UpdateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4531,8 +4565,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4557,7 +4593,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
@@ -4595,7 +4631,7 @@ pub mod net_app {
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
     impl DeleteBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4629,7 +4665,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_policy`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4654,7 +4690,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPolicyRequest::name].
@@ -4678,7 +4714,7 @@ pub mod net_app {
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4762,7 +4798,7 @@ pub mod net_app {
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4807,7 +4843,7 @@ pub mod net_app {
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4841,7 +4877,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::QuotaRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4866,7 +4902,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateQuotaRuleRequest::parent].
@@ -4909,7 +4945,7 @@ pub mod net_app {
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4943,7 +4979,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::QuotaRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4968,7 +5004,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
@@ -5004,7 +5040,7 @@ pub mod net_app {
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5035,7 +5071,7 @@ pub mod net_app {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_quota_rule`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5060,7 +5096,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteQuotaRuleRequest::name].
@@ -5084,7 +5120,7 @@ pub mod net_app {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5163,7 +5199,7 @@ pub mod net_app {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5206,7 +5242,7 @@ pub mod net_app {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5285,7 +5321,7 @@ pub mod net_app {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5331,7 +5367,7 @@ pub mod net_app {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5377,7 +5413,7 @@ pub mod net_app {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

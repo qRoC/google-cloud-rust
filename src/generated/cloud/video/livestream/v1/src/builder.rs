@@ -16,7 +16,6 @@
 
 pub mod livestream_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LivestreamService][super::super::client::LivestreamService].
     ///
@@ -49,7 +48,7 @@ pub mod livestream_service {
     /// Common implementation for [super::super::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod livestream_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod livestream_service {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -105,7 +108,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -130,7 +134,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -179,7 +183,9 @@ pub mod livestream_service {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,7 +269,9 @@ pub mod livestream_service {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -308,7 +316,9 @@ pub mod livestream_service {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -339,7 +349,7 @@ pub mod livestream_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -364,7 +374,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -400,7 +410,9 @@ pub mod livestream_service {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +445,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -458,7 +471,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
@@ -500,7 +513,9 @@ pub mod livestream_service {
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -534,7 +549,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -562,7 +577,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
@@ -592,7 +607,9 @@ pub mod livestream_service {
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -626,7 +643,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -654,7 +671,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
@@ -684,7 +701,9 @@ pub mod livestream_service {
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -717,7 +736,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -742,7 +762,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
@@ -791,7 +811,9 @@ pub mod livestream_service {
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -875,7 +897,9 @@ pub mod livestream_service {
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -920,7 +944,9 @@ pub mod livestream_service {
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -951,7 +977,7 @@ pub mod livestream_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_input`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -976,7 +1002,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
@@ -1006,7 +1032,9 @@ pub mod livestream_service {
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1039,7 +1067,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1064,7 +1093,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
@@ -1106,7 +1135,9 @@ pub mod livestream_service {
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1176,7 +1207,9 @@ pub mod livestream_service {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1260,7 +1293,9 @@ pub mod livestream_service {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1305,7 +1340,9 @@ pub mod livestream_service {
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1356,7 +1393,9 @@ pub mod livestream_service {
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1440,7 +1479,9 @@ pub mod livestream_service {
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1485,7 +1526,9 @@ pub mod livestream_service {
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1518,7 +1561,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Clip, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Clip, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1543,7 +1587,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
@@ -1589,7 +1633,9 @@ pub mod livestream_service {
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1666,7 @@ pub mod livestream_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1645,7 +1691,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
@@ -1675,7 +1721,9 @@ pub mod livestream_service {
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,7 +1756,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1733,7 +1782,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -1782,7 +1831,9 @@ pub mod livestream_service {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1813,7 +1864,7 @@ pub mod livestream_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1838,7 +1889,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -1868,7 +1919,9 @@ pub mod livestream_service {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1913,7 +1966,9 @@ pub mod livestream_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1997,7 +2052,9 @@ pub mod livestream_service {
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2042,7 +2099,9 @@ pub mod livestream_service {
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2075,7 +2134,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Pool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Pool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2100,7 +2160,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
@@ -2139,7 +2199,9 @@ pub mod livestream_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2218,7 +2280,9 @@ pub mod livestream_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2261,7 +2325,9 @@ pub mod livestream_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2340,7 +2406,9 @@ pub mod livestream_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2386,7 +2454,9 @@ pub mod livestream_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2432,7 +2502,9 @@ pub mod livestream_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

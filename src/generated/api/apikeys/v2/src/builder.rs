@@ -16,7 +16,6 @@
 
 pub mod api_keys {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ApiKeys][super::super::client::ApiKeys].
     ///
@@ -49,7 +48,7 @@ pub mod api_keys {
     /// Common implementation for [super::super::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiKeys>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod api_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod api_keys {
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,7 +102,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `create_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -128,7 +127,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -166,7 +165,7 @@ pub mod api_keys {
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,7 +243,7 @@ pub mod api_keys {
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +288,7 @@ pub mod api_keys {
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,7 +333,7 @@ pub mod api_keys {
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -365,7 +364,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `update_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -390,7 +389,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
@@ -423,7 +422,7 @@ pub mod api_keys {
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -454,7 +453,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -479,7 +478,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -509,7 +508,7 @@ pub mod api_keys {
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +539,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -565,7 +564,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteKeyRequest::name].
@@ -589,7 +588,7 @@ pub mod api_keys {
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -634,7 +633,7 @@ pub mod api_keys {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

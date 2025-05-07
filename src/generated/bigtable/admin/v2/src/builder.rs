@@ -16,7 +16,6 @@
 
 pub mod bigtable_instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod bigtable_instance_admin {
     /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod bigtable_instance_admin {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -110,8 +109,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -136,7 +137,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -193,7 +194,7 @@ pub mod bigtable_instance_admin {
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -240,7 +241,7 @@ pub mod bigtable_instance_admin {
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -293,7 +294,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -344,6 +345,17 @@ pub mod bigtable_instance_admin {
             self
         }
 
+        /// Sets the value of [labels][crate::model::Instance::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [create_time][crate::model::Instance::create_time].
         pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -364,17 +376,6 @@ pub mod bigtable_instance_admin {
             self.0.request.satisfies_pzi = v.into();
             self
         }
-
-        /// Sets the value of [labels][crate::model::Instance::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -390,7 +391,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -428,8 +429,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,7 +457,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
@@ -493,7 +496,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -540,7 +543,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -574,8 +577,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::CreateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::CreateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -600,7 +605,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -644,7 +649,7 @@ pub mod bigtable_instance_admin {
 
     impl GetCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -691,7 +696,7 @@ pub mod bigtable_instance_admin {
 
     impl ListClusters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -744,7 +749,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -778,8 +783,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::UpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::UpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -804,7 +811,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::Cluster::name].
@@ -898,7 +905,7 @@ pub mod bigtable_instance_admin {
 
     impl PartialUpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -936,8 +943,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::PartialUpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -962,7 +971,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
@@ -1001,7 +1010,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1048,7 +1057,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1123,7 +1132,7 @@ pub mod bigtable_instance_admin {
 
     impl GetAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1170,7 +1179,7 @@ pub mod bigtable_instance_admin {
 
     impl ListAppProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1244,7 +1253,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1282,8 +1291,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AppProfile,
+                crate::model::UpdateAppProfileMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1308,7 +1319,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
@@ -1353,7 +1364,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1411,7 +1422,7 @@ pub mod bigtable_instance_admin {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1467,7 +1478,7 @@ pub mod bigtable_instance_admin {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1534,7 +1545,7 @@ pub mod bigtable_instance_admin {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1597,7 +1608,7 @@ pub mod bigtable_instance_admin {
 
     impl ListHotTablets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1686,7 +1697,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1724,8 +1735,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::CreateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1750,7 +1763,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
@@ -1794,7 +1807,7 @@ pub mod bigtable_instance_admin {
 
     impl GetLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1841,7 +1854,7 @@ pub mod bigtable_instance_admin {
 
     impl ListLogicalViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1918,7 +1931,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1956,8 +1969,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::UpdateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1982,7 +1997,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
@@ -2019,7 +2034,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2075,7 +2090,7 @@ pub mod bigtable_instance_admin {
 
     impl CreateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2113,7 +2128,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::CreateMaterializedViewMetadata,
             >;
@@ -2141,7 +2156,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
@@ -2187,7 +2202,7 @@ pub mod bigtable_instance_admin {
 
     impl GetMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2237,7 +2252,7 @@ pub mod bigtable_instance_admin {
 
     impl ListMaterializedViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2314,7 +2329,7 @@ pub mod bigtable_instance_admin {
 
     impl UpdateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2352,7 +2367,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::UpdateMaterializedViewMetadata,
             >;
@@ -2380,7 +2395,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
@@ -2419,7 +2434,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2475,7 +2490,7 @@ pub mod bigtable_instance_admin {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2556,7 +2571,7 @@ pub mod bigtable_instance_admin {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2604,7 +2619,7 @@ pub mod bigtable_instance_admin {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2652,7 +2667,7 @@ pub mod bigtable_instance_admin {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2697,7 +2712,6 @@ pub mod bigtable_instance_admin {
 
 pub mod bigtable_table_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
     ///
@@ -2730,7 +2744,7 @@ pub mod bigtable_table_admin {
     /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2739,7 +2753,9 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2753,7 +2769,9 @@ pub mod bigtable_table_admin {
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2830,7 +2848,9 @@ pub mod bigtable_table_admin {
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2867,8 +2887,10 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Table,
+                crate::model::CreateTableFromSnapshotMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2893,7 +2915,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
@@ -2933,7 +2955,9 @@ pub mod bigtable_table_admin {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3011,7 +3035,9 @@ pub mod bigtable_table_admin {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3062,7 +3088,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3095,7 +3123,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata> {
-            type Operation = lro::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3120,7 +3149,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
@@ -3164,7 +3193,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3209,7 +3240,9 @@ pub mod bigtable_table_admin {
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3243,7 +3276,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3268,7 +3301,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
@@ -3292,7 +3325,9 @@ pub mod bigtable_table_admin {
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3329,7 +3364,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::CreateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::CreateAuthorizedViewMetadata,
             >;
@@ -3357,7 +3392,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
@@ -3400,7 +3435,9 @@ pub mod bigtable_table_admin {
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3484,7 +3521,9 @@ pub mod bigtable_table_admin {
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3541,7 +3580,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3578,7 +3619,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::UpdateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::UpdateAuthorizedViewMetadata,
             >;
@@ -3606,7 +3647,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
@@ -3648,7 +3689,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3702,7 +3745,9 @@ pub mod bigtable_table_admin {
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3737,12 +3782,6 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_warnings = v.into();
-            self
-        }
-
         /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
         ///
         /// This is a **required** field for requests.
@@ -3753,6 +3792,12 @@ pub mod bigtable_table_admin {
         {
             use std::iter::Iterator;
             self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
             self
         }
     }
@@ -3769,7 +3814,9 @@ pub mod bigtable_table_admin {
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3848,7 +3895,9 @@ pub mod bigtable_table_admin {
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3896,7 +3945,9 @@ pub mod bigtable_table_admin {
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3994,7 +4045,9 @@ pub mod bigtable_table_admin {
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4027,8 +4080,10 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::SnapshotTableMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                crate::model::SnapshotTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4053,7 +4108,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
@@ -4105,7 +4160,9 @@ pub mod bigtable_table_admin {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4150,7 +4207,9 @@ pub mod bigtable_table_admin {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4222,7 +4281,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4267,7 +4328,9 @@ pub mod bigtable_table_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4301,7 +4364,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4326,7 +4389,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -4369,7 +4432,9 @@ pub mod bigtable_table_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4414,7 +4479,9 @@ pub mod bigtable_table_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4473,7 +4540,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4518,7 +4587,9 @@ pub mod bigtable_table_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4602,7 +4673,9 @@ pub mod bigtable_table_admin {
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4636,7 +4709,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4661,7 +4734,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
@@ -4715,7 +4788,9 @@ pub mod bigtable_table_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4748,7 +4823,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4773,7 +4849,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -4824,7 +4900,9 @@ pub mod bigtable_table_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4878,7 +4956,9 @@ pub mod bigtable_table_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4943,7 +5023,9 @@ pub mod bigtable_table_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5004,7 +5086,9 @@ pub mod bigtable_table_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5083,7 +5167,9 @@ pub mod bigtable_table_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5129,7 +5215,9 @@ pub mod bigtable_table_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5175,7 +5263,9 @@ pub mod bigtable_table_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
