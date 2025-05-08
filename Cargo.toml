@@ -273,11 +273,10 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
-anyhow           = "1"
-axum             = { version = "0.8" }
 async-trait      = { version = "0.1" }
 bytes            = { version = "1", default-features = false, features = ["serde"] }
 http             = { version = "1", default-features = false }
+http-body-util   = { version = "0.1" }
 lazy_static      = { version = "1", default-features = false }
 percent-encoding = { version = "2", default-features = false }
 prost            = { version = "0.13", default-features = false }
@@ -287,18 +286,26 @@ reqwest          = { version = "0.12", default-features = false, features = ["js
 serde            = { version = "1", default-features = false, features = ["serde_derive"] }
 serde_json       = { version = "1", default-features = false }
 serde_with       = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-test-case        = { version = "3" }
+thiserror        = { version = "2" }
 tokio            = { version = "1", default-features = false }
-tokio-test       = { version = "0.4", default-features = false }
 tonic            = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
 tonic-build      = { version = "0.13", default-features = false }
 tracing          = { version = "0.1" }
-mutants          = { version = "0.0.3" }
+# Test packags
+anyhow        = "1"
+axum          = { version = "0.8" }
+mockall       = { version = "0.13" }
+mutants       = { version = "0.0.3" }
+scoped-env    = { version = "2" }
+serial_test   = { version = "3" }
+test-case     = { version = "3" }
+tokio-test    = { version = "0.4", default-features = false }
+rustc_version = { version = "0.4" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.22", path = "src/gax", package = "google-cloud-gax" }
-gaxi                          = { version = "0.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                          = { version = "0.2", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.3", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.24", path = "src/generated/longrunning", package = "google-cloud-longrunning" }

@@ -2304,7 +2304,6 @@ dependencies = [
  "base64",
  "bytes",
  "futures",
- "google-cloud-gax",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "http",
@@ -2321,7 +2320,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -2846,6 +2845,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+ "tokio-test",
 ]
 
 [[package]]
@@ -5001,6 +5001,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
+ "google-cloud-sql-v1",
  "google-cloud-storage-control",
  "google-cloud-telcoautomation-v1",
  "google-cloud-wkt",
